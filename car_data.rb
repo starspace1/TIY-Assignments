@@ -16,14 +16,14 @@ class Car
 
     @salesman_name += "fuel efficient " if gas_mileage > 25
 
-    @salesman_name += name
+    @salesman_name += name #does it matter if we have @name or self.name here?
 
     def land_yacht?
       self.weight > 3500
     end
 
     def to_s
-       "#{salesman_name}"
+       "#{salesman_name}" #does it matter if we have self.salesman_name or @salesman_name here?
     end
 
 
