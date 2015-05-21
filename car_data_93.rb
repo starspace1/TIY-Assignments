@@ -35,9 +35,12 @@ class Car
     make == "Mazda"
   end
 
-
   def luxury?
     price > 30.0
+  end
+
+  def filter_by_type filt
+    type == filt
   end
 
 
@@ -59,3 +62,7 @@ class Car
   end
 
 end
+
+cars = Car.read_data
+
+puts cars.select{|car| car.filter_by_type "Large"}

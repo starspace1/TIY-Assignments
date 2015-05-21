@@ -6,12 +6,12 @@
 <body>
   <h1>Home Page</h1>
   <p>This is the home page for the 03 - Server OOP assignment.</p>
-  <p><a href = "compact">Compact Cars</a></p>
-  <p><a href = "sporty">Sporty Cars</a></p>
-  <p><a href = "large">Large Cars</a></p>
-  <p><a href = "mazda">Mazda Cars</a></p>
-  <p><a href = "pontiac">Pontiac Cars</a></p>
-  <p><a href = "luxury">Luxury Cars</a></p>
+  <p>Please choose which type of cars to display.</p>
+  <% @filters.each do |f| %>
+  <p> <a href = " <%=f%>" > <%= f %></a> </p>
+  <% end %>
+  
   <p><a href = "shutdown">Shut Down</a></p>
+
 </body>
 </html>
