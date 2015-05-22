@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Iron Yelp</title>
+</head>
+<body>
+  <h1><%= @selected_restaurant.name %>:</h1>
+    <ul>
+    <li>Address: <%= @selected_restaurant.address %></li>
+    <li>Average Rating: <%= @selected_restaurant.avg_review.round(1) %></li>
+  </ul>
+  <p><a href="shutdown">Shutdown</a></p>
+</body>
+</html>
