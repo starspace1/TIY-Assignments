@@ -76,10 +76,20 @@ class Restaurant
     self.all.sort_by{|r| r.ratings.size}.reverse
   end
 
+  def self.sorted_by_avg_review
+    self.all.sort_by{|r| r.avg_review}.reverse
+  end
+
   def self.named name
     #TODO: what if there is more than one restaurant with the same name?
     a = self.all.select{|r| r.name == name}
     return a[0]
+  end
+
+  def self.cuisine_types
+
+    Restaurant.all.map {|r| r.cuisines}.flatten.uniq
+
   end
 
 end
@@ -104,5 +114,7 @@ end
 # puts Restaurant.sorted_by_num_reviews
 
 # @selected_restaurant = Restaurant.named "Artisans Table"
-# puts @selected_restaurant.name
+# puts @selected_restaurant.name 
+
+puts "#{Restaurant.cuisine_types}"
 

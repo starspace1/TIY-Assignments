@@ -8,8 +8,11 @@
   <h2>Where You Come to Learn About Restaurants</h2>
   <p><a href = "restaurants">All Restaurants</a></p>
   <ul>
-    <li><p><a href = "/vegetarian">Vegetarian Restaurants</a></li>
-    <li><p><a href = "/cheap">Cheap Restaurants</a></li>
+    <% @cuisines.each do |c| %>
+    <li><p> <a href = " <%=c%>" > <%= c %> Restaurants</a> </p></li>
+    <% end %>
+    <li><p><a href = "/high_avg_sort">Sorted by Highest Average</a></li>
+    <li><p><a href = "/num_review_sort">Sorted by Number of Reviews</a></li>
   </ul>
   <p><a href = "shutdown">shutdown</a></p>
 </body>
