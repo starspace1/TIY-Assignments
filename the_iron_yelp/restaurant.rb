@@ -41,6 +41,18 @@ class Restaurant
      prices.max <= 10
   end
 
+  def price_range
+    "$#{prices[0]} - $#{prices[1]}"
+  end
+
+  def cuisine_types
+    cuisines.join(", ")
+  end
+
+  def hours_on this_day
+    "#{hours[this_day]["Open"]} - #{hours[this_day]["Closed"]}"
+  end
+
   #Class Methods
 
   def self.all
@@ -116,5 +128,7 @@ end
 # @selected_restaurant = Restaurant.named "Artisans Table"
 # puts @selected_restaurant.name 
 
-puts "#{Restaurant.cuisine_types}"
+# puts "#{Restaurant.cuisine_types}"
+
+puts Restaurant.all[0].hours_on "Monday"
 

@@ -5,9 +5,21 @@
 </head>
 <body>
   <h1><%= @selected_restaurant.name %>:</h1>
-    <ul>
+  <ul>
     <li>Address: <%= @selected_restaurant.address %></li>
+    <li>Price Range: <%= @selected_restaurant.price_range %></li>
+    <li>Cuisine Types: <%= @selected_restaurant.cuisine_types %></li>
     <li>Average Rating: <%= @selected_restaurant.avg_review.round(1) %></li>
+    <li>Hours: </li>
+    <ul>
+      <li>Monday: <%= @selected_restaurant.hours_on "Monday" %></li>
+      <li>Tuesday: <%= @selected_restaurant.hours_on "Tuesday" %></li>
+      <li>Wednesday: <%= @selected_restaurant.hours_on "Wednesday" %></li>
+      <li>Thursday: <%= @selected_restaurant.hours_on "Thursday" %></li>
+      <li>Friday: <%= @selected_restaurant.hours_on "Friday" %></li>
+      <li>Saturday: <%= @selected_restaurant.hours_on "Saturday" %></li>
+      <li>Sunday: <%= @selected_restaurant.hours_on "Sunday" %></li>
+    </ul>
   </ul>
   <p><a href="shutdown">Shutdown</a></p>
 </body>
