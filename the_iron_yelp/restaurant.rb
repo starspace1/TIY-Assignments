@@ -50,7 +50,12 @@ class Restaurant
   end
 
   def hours_on this_day
-    "#{hours[this_day]["Open"]} - #{hours[this_day]["Closed"]}"
+    begin
+      "#{hours[this_day]["Open"]} - #{hours[this_day]["Closed"]}"
+    rescue
+      "Closed"
+    end
+
   end
 
   #Class Methods
@@ -130,5 +135,11 @@ end
 
 # puts "#{Restaurant.cuisine_types}"
 
-puts Restaurant.all[0].hours_on "Monday"
+rests = Restaurant.all
+
+rests.each do |r|
+
+     puts r.hours_on "Sunday" 
+
+end
 

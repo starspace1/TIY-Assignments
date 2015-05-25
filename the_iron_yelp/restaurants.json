@@ -215,10 +215,6 @@
       "Saturday": {
         "Open": "11:30am",
         "Closed": "12:30am"
-      },
-      "Sunday": {
-        "Open": "12:00pm",
-        "Closed": "12:00pm"
       }
     },
     "price": [31,60],
