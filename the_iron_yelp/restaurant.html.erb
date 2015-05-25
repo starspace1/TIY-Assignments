@@ -10,6 +10,7 @@
     <li>Price Range: <%= @selected_restaurant.price_range %></li>
     <li>Cuisine Types: <%= @selected_restaurant.cuisine_types %></li>
     <li>Average Rating: <%= @selected_restaurant.avg_review.round(1) %></li>
+    <li>Hours Today: <%= @selected_restaurant.hours_today %></li>
     <li>Hours: </li>
     <ul>
       <li>Monday: <%= @selected_restaurant.hours_on "Monday" %></li>

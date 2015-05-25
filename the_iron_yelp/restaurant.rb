@@ -7,15 +7,15 @@ class Restaurant
   #Instance Methods
 
   def initialize(id, name, address, website, hours, prices, cuisines, ratings)
-  
-  @id = id
-  @name = name
-  @address = address
-  @website = website 
-  @hours = hours 
-  @prices = prices 
-  @cuisines = cuisines 
-  @ratings = ratings
+
+    @id = id
+    @name = name
+    @address = address
+    @website = website 
+    @hours = hours 
+    @prices = prices 
+    @cuisines = cuisines 
+    @ratings = ratings
 
   end
 
@@ -38,24 +38,98 @@ class Restaurant
   end
 
   def cheap?
-     prices.max <= 10
+   prices.max <= 10
+ end
+
+ def price_range
+  "$#{prices[0]} - $#{prices[1]}"
+end
+
+def cuisine_types
+  cuisines.join(", ")
+end
+
+def hours_on this_day
+  begin
+    "#{hours[this_day]["Open"]} - #{hours[this_day]["Closed"]}"
+  rescue
+    "Closed"
+  end
+end
+
+def hours_today
+
+  this_day = Time.now.wday
+
+  case this_day
+
+  when 0
+    hours_on "Monday"
+  when 1
+    hours_on "Tuesday"
+  when 2
+   hours_on "Wednesday"
+  when 3
+    hours_on "Thursday"
+  when 4
+    hours_on "Friday"
+  when 5
+    hours_on "Saturday"
+  when 6
+    hours_on "Sunday"
   end
 
-  def price_range
-    "$#{prices[0]} - $#{prices[1]}"
-  end
+end
 
-  def cuisine_types
-    cuisines.join(", ")
-  end
+def open_now?
 
-  def hours_on this_day
+    #Get the current day and time 
+    this_day = Time.now.wday
+    this_time_float = Time.now.hour + (Time.now.min/60.0)
+
     begin
-      "#{hours[this_day]["Open"]} - #{hours[this_day]["Closed"]}"
-    rescue
-      "Closed"
+      case this_day
+      when 0
+        open_time_float = convert_time hours["Monday"]["Open"]
+        close_time_float = convert_time hours["Monday"]["Closed"]
+      when 1
+        open_time_float = convert_time hours["Tuesday"]["Open"]
+        close_time_float = convert_time hours["Tuesday"]["Closed"]
+      when 2
+        open_time_float = convert_time hours["Wednesday"]["Open"]
+        close_time_float = convert_time hours["Wednesday"]["Closed"]
+      when 3
+        open_time_float = convert_time hours["Thursday"]["Open"]
+        close_time_float = convert_time hours["Thursday"]["Closed"]
+      when 4
+        open_time_float = convert_time hours["Friday"]["Open"]
+        close_time_float = convert_time hours["Friday"]["Closed"]
+      when 5
+        open_time_float = convert_time hours["Saturday"]["Open"]
+        close_time_float = convert_time hours["Saturday"]["Closed"]
+      when 6
+        open_time_float = convert_time hours["Sunday"]["Open"]
+        close_time_float = convert_time hours["Sunday"]["Closed"]
+      end
+
+    rescue this_time_float 
+
+      return false
+
     end
 
+    return this_time_float >= open_time_float && this_time_float <= close_time_float
+
+  end
+
+  def convert_time time_s
+    is_am = time_s.include?("A") || time_s.include?("a")
+    a = time_s.split(":")
+    hour = a[0].to_f
+    hour += 12.0 if !is_am
+    a[1].gsub!(/[^0-9]/,'')
+    minute = a[1].to_f
+    time_float = hour + (minute/60.0)
   end
 
   #Class Methods
@@ -109,6 +183,10 @@ class Restaurant
 
   end
 
+  def self.open_now
+    self.all.select{|r| r.open_now?}
+  end
+
 end
 
 # puts "Breakfast & Brunch restaurants:"
@@ -134,12 +212,4 @@ end
 # puts @selected_restaurant.name 
 
 # puts "#{Restaurant.cuisine_types}"
-
-rests = Restaurant.all
-
-rests.each do |r|
-
-     puts r.hours_on "Sunday" 
-
-end
 

@@ -8,21 +8,21 @@
   <table>
     <tr>
       <th>Name</th>
+      <th>Hours Today</th>
       <th>Price Range</th>
       <th>Cuisine Types</th>
       <th>Address</th>
       <th>Website</th>
-      <th>Number of Reviews</th>
       <th>Average Rating</th>
     </tr>
     <% @restaurants.each do |r| %>
     <tr>
       <td><a href="<%= r.name %>"><%= r.name %></a></td>
+      <td><%= r.hours_today %></td>
       <td><%= r.price_range %></td>
       <td><%= r.cuisine_types %></td>
       <td><%= r.address %></td>
       <td><%= r.website %></td>
-      <td><%= r.ratings.size %></td>
       <td><%= r.avg_review.round(1) %></td>
     </tr>
     <% end %>

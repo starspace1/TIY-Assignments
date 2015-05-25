@@ -51,6 +51,12 @@ server.mount_proc "/num_review_sort" do |request, response|
   response.body = template.result
 end
 
+server.mount_proc "/open_now" do |request, response|
+  @restaurants = Restaurant.open_now
+  template = ERB.new(File.read "restaurants.html.erb")
+  response.body = template.result
+end
+
 server.mount_proc "/shutdown" do |request, response|
   response.body = "Bye"
   server.shutdown
