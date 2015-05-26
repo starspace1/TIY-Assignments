@@ -7,10 +7,15 @@
   <h1>The Iron Yelp</h1>
   <h2>Where You Come to Learn About Restaurants</h2>
   <p><a href = "restaurants">All Restaurants</a></p>
+  <b><p>Cuisines</p></b>
   <ul>
     <% @cuisines.each do |c| %>
     <li><p> <a href = " <%=c%>" > <%= c %> Restaurants</a> </p></li>
     <% end %>
+  </ul>
+  <b><p>Other Selections:</p></b>
+  <ul>
+    <li><p><a href = "/cheap">Cheap</a></li>
     <li><p><a href = "/open_now">Open Now</a></li>
     <li><p><a href = "/high_avg_sort">Sorted by Highest Average</a></li>
     <li><p><a href = "/num_review_sort">Sorted by Number of Reviews</a></li>
