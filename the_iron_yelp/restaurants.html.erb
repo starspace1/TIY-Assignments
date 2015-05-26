@@ -23,7 +23,7 @@
       <td><%= r.cuisine_types %></td>
       <td><%= r.address %></td>
       <td><a href = http://www.<%= "#{r.website}" %>><%= "#{r.website}" %></a></td>
-      <td><%= r.avg_review.round(1) %></td>
+      <td><%= r.avg_review.round(1) %> <%= "[#{r.ratings.length} ratings]" %> </td>
     </tr>
     <% end %>
   </table>
