@@ -10,15 +10,17 @@
     <li>Price Range: <%= @selected_restaurant.price_range %></li>
     <li>Cuisine Types: <%= @selected_restaurant.cuisine_types %></li>
     <li>Average Rating: <%= @selected_restaurant.avg_review.round(1) %></li>
-    <li>Website: <a href = http://www.<%= "#{@selected_restaurant.website}" %>><%= "#{@selected_restaurant.website}" %></a></li>
+    <li>Website: <a href = "http://www.<%= @selected_restaurant.website %>"><%= @selected_restaurant.website %></a></li>
     <li>Hours Today: <%= @selected_restaurant.hours_today %></li>
     <li>Hours: </li>
     <ul>
-      <% for i in 0..6 do %>
-      <li><%= "#{WEEK_DAYS[i]}:" %> <%= " #{@selected_restaurant.hours_on WEEK_DAYS[i]}" %></li>
+      <% WEEK_DAYS.each do |day| %>
+        <li><%= day %>: <%= " #{ @selected_restaurant.hours_on day }" %></li>
       <% end %>
     </ul>
   </ul>
-  <p><a href="shutdown">Shutdown</a></p>
+  <p><a href="home">Home</a></p>
+  <p><a href="restaurants">All Restaurants</a></p>
+  <p><a href="shutdown">Shut Down Server</a></p>
 </body>
 </html>

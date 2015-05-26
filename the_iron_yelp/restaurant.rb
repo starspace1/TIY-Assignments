@@ -94,10 +94,16 @@ class Restaurant
 
     data = JSON.parse(File.read "restaurants.json") #data is an array of hashes
 
-    restaurants = data.map do |r| #this do loop will return an array of objects
+    data.map do |restaurant_hash| #this do loop will return an array of objects
 
-      Restaurant.new(r["id"], r["name"], r["address"], r["website"], 
-        r["hours"], r["price"], r["cuisines"], r["ratings"])
+      Restaurant.new(restaurant_hash["id"], 
+                     restaurant_hash["name"],
+                     restaurant_hash["address"],
+                     restaurant_hash["website"], 
+                     restaurant_hash["hours"],
+                     restaurant_hash["price"],
+                     restaurant_hash["cuisines"],
+                     restaurant_hash["ratings"])
 
     end
 

@@ -9,8 +9,8 @@
   <p><a href = "restaurants">All Restaurants</a></p>
   <b><p>Cuisines</p></b>
   <ul>
-    <% @cuisines.each do |c| %>
-    <li><p> <a href = " <%=c%>" > <%= c %> Restaurants</a> </p></li>
+    <% @cuisines.each do |cuisine| %>
+      <li><a href = "<%= cuisine %>" > <%= cuisine %> Restaurants</a></li>
     <% end %>
   </ul>
   <b><p>Other Selections:</p></b>
@@ -20,6 +20,6 @@
     <li><p><a href = "/high_avg_sort">Sorted by Highest Average</a></li>
     <li><p><a href = "/num_review_sort">Sorted by Number of Reviews</a></li>
   </ul>
-  <p><a href = "shutdown">shutdown</a></p>
+  <p><a href = "shutdown">Shut Down Server</a></p>
 </body>
 </html>
