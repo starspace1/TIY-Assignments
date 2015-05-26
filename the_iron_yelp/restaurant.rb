@@ -22,7 +22,7 @@ class Restaurant
   end
 
   def to_s
-    "#{name}"
+    "#{ name }"
   end
 
   def is_cuisine cuisine_type
@@ -35,37 +35,35 @@ class Restaurant
 
   def avg_review
     sum = 0.0
-    ratings.each {|i| sum += i.to_f}
+    ratings.each { |i| sum += i.to_f }
     sum/ratings.length.to_f
   end
 
   def cheap?
-   prices.max <= 10
- end
-
- def price_range
-  "$#{prices[0]} - $#{prices[1]}"
-end
-
-def cuisine_types
-  cuisines.join(", ")
-end
-
-def hours_on this_day
-  begin
-    "#{hours[this_day]["Open"]} - #{hours[this_day]["Closed"]}"
-  rescue
-    "Closed"
+    prices.max <= 10
   end
-end
 
-def hours_today
+  def price_range
+    "$#{ prices[0] } - $#{ prices[1] }"
+  end
 
-  hours_on WEEK_DAYS[Time.now.wday]
+  def cuisine_types
+    cuisines.join(", ")
+  end
 
-end
+  def hours_on this_day
+    begin
+      "#{ hours[this_day]["Open"] } - #{ hours[this_day]["Closed"] }"
+    rescue
+      "Closed"
+    end
+  end
 
-def open_now?
+  def hours_today
+    hours_on WEEK_DAYS[Time.now.wday]
+  end
+
+  def open_now?
 
     this_time_float = Time.now.hour + (Time.now.min/60.0)
 
@@ -106,43 +104,41 @@ def open_now?
   end
 
   def self.cuisine cuisine_type
-    self.all.select{|r| r.is_cuisine cuisine_type}
+    self.all.select{ |r| r.is_cuisine cuisine_type }
   end
 
   def self.num_reviews num
-    self.all.select{|r| r.num_reviews num}
+    self.all.select{ |r| r.num_reviews num }
   end
 
   def self.highest_avg_review
-    self.all.max_by{|r| r.avg_review}
+    self.all.max_by{ |r| r.avg_review }
   end
 
   def self.cheap
-    self.all.select{|r| r.cheap?}
+    self.all.select{ |r| r.cheap? }
   end
 
   def self.sorted_by_num_reviews
-    self.all.sort_by{|r| r.ratings.size}.reverse
+    self.all.sort_by{ |r| r.ratings.size }.reverse
   end
 
   def self.sorted_by_avg_review
-    self.all.sort_by{|r| r.avg_review}.reverse
+    self.all.sort_by{ |r| r.avg_review }.reverse
   end
 
   def self.named name
     #TODO: what if there is more than one restaurant with the same name?
-    a = self.all.select{|r| r.name == name}
+    a = self.all.select{ |r| r.name == name }
     return a[0]
   end
 
   def self.cuisine_types
-
-    Restaurant.all.map {|r| r.cuisines}.flatten.uniq
-
+    Restaurant.all.map { |r| r.cuisines }.flatten.uniq
   end
 
   def self.open_now
-    self.all.select{|r| r.open_now?}
+    self.all.select{ |r| r.open_now? }
   end
 
 end
