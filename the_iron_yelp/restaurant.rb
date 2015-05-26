@@ -1,5 +1,7 @@
 require 'json'
 
+WEEK_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
 class Restaurant
 
   attr_reader :id, :name, :address, :website, :hours, :prices, :cuisines, :ratings
@@ -59,63 +61,19 @@ end
 
 def hours_today
 
-  this_day = Time.now.wday
-
-  case this_day
-
-  when 0
-    hours_on "Monday"
-  when 1
-    hours_on "Tuesday"
-  when 2
-   hours_on "Wednesday"
-  when 3
-    hours_on "Thursday"
-  when 4
-    hours_on "Friday"
-  when 5
-    hours_on "Saturday"
-  when 6
-    hours_on "Sunday"
-  end
+  hours_on WEEK_DAYS[Time.now.wday]
 
 end
 
 def open_now?
 
-    #Get the current day and time 
-    this_day = Time.now.wday
     this_time_float = Time.now.hour + (Time.now.min/60.0)
 
     begin
-      case this_day
-      when 0
-        open_time_float = convert_time hours["Monday"]["Open"]
-        close_time_float = convert_time hours["Monday"]["Closed"]
-      when 1
-        open_time_float = convert_time hours["Tuesday"]["Open"]
-        close_time_float = convert_time hours["Tuesday"]["Closed"]
-      when 2
-        open_time_float = convert_time hours["Wednesday"]["Open"]
-        close_time_float = convert_time hours["Wednesday"]["Closed"]
-      when 3
-        open_time_float = convert_time hours["Thursday"]["Open"]
-        close_time_float = convert_time hours["Thursday"]["Closed"]
-      when 4
-        open_time_float = convert_time hours["Friday"]["Open"]
-        close_time_float = convert_time hours["Friday"]["Closed"]
-      when 5
-        open_time_float = convert_time hours["Saturday"]["Open"]
-        close_time_float = convert_time hours["Saturday"]["Closed"]
-      when 6
-        open_time_float = convert_time hours["Sunday"]["Open"]
-        close_time_float = convert_time hours["Sunday"]["Closed"]
-      end
-
+      open_time_float = convert_time hours[WEEK_DAYS[Time.now.wday]]["Open"]
+      close_time_float = convert_time hours[WEEK_DAYS[Time.now.wday]]["Closed"]
     rescue this_time_float 
-
       return false
-
     end
 
     return this_time_float >= open_time_float && this_time_float <= close_time_float
@@ -188,28 +146,3 @@ def open_now?
   end
 
 end
-
-# puts "Breakfast & Brunch restaurants:"
-# puts Restaurant.cuisine "Breakfast & Brunch"
-# puts 
-
-# puts "Restaurants with 10 reviews:"
-# puts Restaurant.num_reviews 10
-# puts
-
-# puts "Highest average review:"
-# puts Restaurant.highest_avg_review
-# puts
-
-# puts "Cheap restaurants:"
-# puts Restaurant.cheap
-# puts
-
-# puts "Restaurants sorted by number of reviews:"
-# puts Restaurant.sorted_by_num_reviews
-
-# @selected_restaurant = Restaurant.named "Artisans Table"
-# puts @selected_restaurant.name 
-
-# puts "#{Restaurant.cuisine_types}"
-

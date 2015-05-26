@@ -13,13 +13,9 @@
     <li>Hours Today: <%= @selected_restaurant.hours_today %></li>
     <li>Hours: </li>
     <ul>
-      <li>Monday: <%= @selected_restaurant.hours_on "Monday" %></li>
-      <li>Tuesday: <%= @selected_restaurant.hours_on "Tuesday" %></li>
-      <li>Wednesday: <%= @selected_restaurant.hours_on "Wednesday" %></li>
-      <li>Thursday: <%= @selected_restaurant.hours_on "Thursday" %></li>
-      <li>Friday: <%= @selected_restaurant.hours_on "Friday" %></li>
-      <li>Saturday: <%= @selected_restaurant.hours_on "Saturday" %></li>
-      <li>Sunday: <%= @selected_restaurant.hours_on "Sunday" %></li>
+      <% for i in 0..6 do %>
+      <li><%= "#{WEEK_DAYS[i]}:" %> <%= " #{@selected_restaurant.hours_on WEEK_DAYS[i]}" %></li>
+      <% end %>
     </ul>
   </ul>
   <p><a href="shutdown">Shutdown</a></p>
