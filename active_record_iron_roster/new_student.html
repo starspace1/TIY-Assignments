@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Student</title>
+  </head>
+  <body>
+    <h1>Add someone new!</h1>
+    <form action="/create_student" method="POST">
+      <label for="name">Name</label>
+      <input id = "name" type="text" name="name"><br><br>
+      <label for="subject">Subject</label>
+      <input id = "subject" type="text" name="subject"><br><br>
+      <label for="github">Github Account</label>
+      <input id ="github" type="text" name="github_account"><br><br>
+      <label for="student">Student?</label>
+      <input id ="student" type="text" name="student"><br><br>
+      <button>Add!</button>
+    </form>
+    <br><a href = "/home">View all students</a>
+  </body>
+</html>

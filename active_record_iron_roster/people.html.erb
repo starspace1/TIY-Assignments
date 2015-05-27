@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>People</title>
+</head>
+<body>
+  <ul>
+    <% @people.each do |person| %>
+    <li><%= "#{person.name}, #{person.subject}, #{person.github_account}, #{person.student}"%></li>
+    <% end %>
+  </ul>
+</body>
+</html>
