@@ -4,10 +4,21 @@
   <title>People</title>
 </head>
 <body>
-  <ul>
+    <table>
+    <tr>
+      <th>Name</th>
+      <th>Subject</th>
+      <th>GitHub Account</th>
+      <th>Is Student</th>
+    </tr>
     <% @people.each do |person| %>
-    <li><%= "#{person.name}, #{person.subject}, #{person.github_account}, #{person.student}"%></li>
+    <tr>
+      <td><%= person.name %></td>
+      <td><%= person.subject %></td>
+      <td><a href = "http://www.github.com/<%= person.github_account %>"><%= person.github_account %></a></td>
+      <td><%= person.student %></td>
+    </tr>
     <% end %>
-  </ul>
+  </table>
 </body>
 </html>
