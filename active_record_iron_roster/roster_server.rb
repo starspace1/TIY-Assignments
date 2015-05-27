@@ -50,7 +50,8 @@ end
  # /create_student (add a student to the database using form data, and have a link back to /home)
  server.mount_proc "/create_student" do |request, response|
   @person = Person.create(request.query)
-  response.body = "There are now #{Person.count} people."
+  template = ERB.new(File.read "new_student.html.erb")
+  response.body = template.result
 end
 
  server.mount_proc "/shutdown" do |request, response|
