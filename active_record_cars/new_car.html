@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Car</title>
+</head>
+<body>
+  <h1>Add a new car!</h1>
+  <form action="/create_car" method="POST">
+    <fieldset>
+      <legend>New Car</legend>
+      <label for="make">Make</label>
+      <input id = "make" type="text" name="make"><br><br>
+      <label for="model">Model</label>
+      <input id = "model" type="text" name="model"><br><br>
+      <!-- TODO: make category dropdown or radio -->
+      <label for="category">Category</label> 
+      <input id ="category" type="text" name="category"><br><br>
+      <label for="min_price">Minimum Price in $Thousands</label>
+      <input id = "min_price" type="number" name="min_price"><br><br>
+      <label for="highway_mpg">Highway MPG</label>
+      <input id = "highway_mpg" type="number" name="highway_mpg"><br><br>
+      <!-- TODO: make origin dropdown or radio -->
+      <label for="origin">Origin (non-USA or USA)</label>
+      <input id = "origin" type="text" name="origin"><br><br>
+      <button>Add!</button>
+    </fieldset>
+  </form>
+  <br><a href = "/home">Back Home</a>
+  <br><a href = "/shutdown">Shut Down</a>
+</body>
+</html>

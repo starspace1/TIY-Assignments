@@ -6,7 +6,7 @@ require "./car"
 
 server = WEBrick::HTTPServer.new(:Port => 8000)
 
-server.mount_proc "/home" do |request, response|
+server.mount_proc "/home" do |request, response| #can just put "/" instead of "/home" and then localhost:8000/ will point to home
   template = ERB.new(File.read "../home.html.erb")
   response.body = template.result
 end
@@ -65,9 +65,19 @@ server.mount_proc "/foreign" do |request, response|
   response.body = template.result
 end
 
-# TODO:
 # /new_car (show the form)
+ server.mount_proc "/new_car" do |request, response|
+  template = ERB.new(File.read "new_car.html")
+  response.body = template.result
+end
+
 # /create_car (process the form)
+ server.mount_proc "/create_car" do |request, response|
+  @car = Car.create(request.query)
+  template = ERB.new(File.read "new_car.html.erb")
+  response.body = template.result
+end
+
 
 server.mount_proc "/shutdown" do |request, response|
   response.body = "Bye"
