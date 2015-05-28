@@ -11,6 +11,7 @@ force: true do |table|
   table.string :category
   table.float :min_price
   table.integer :highway_mpg
+  table.string :origin
 end
 
 
@@ -27,7 +28,8 @@ cars = car_strings.map do |car_string|
              model: a_car_array[2], 
              category: a_car_array[3], 
              min_price: a_car_array[4].to_f, 
-             highway_mpg: a_car_array[8].to_i)
+             highway_mpg: a_car_array[8].to_i,
+             origin: a_car_array[26])
 
 end
 
