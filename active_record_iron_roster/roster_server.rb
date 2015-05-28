@@ -4,7 +4,7 @@ require "./person"
 server = WEBrick::HTTPServer.new(:Port => 8000)
 
  # /home (list everyone on the roster)
-server.mount_proc "/home" do |request, response|
+server.mount_proc "/home" do |request, response| #can just put "/" instead of "/home" and then localhost:8000/ will point to home
   @people = Person.all
   template = ERB.new(File.read "people.html.erb")
   response.body = template.result
@@ -48,7 +48,7 @@ end
  # /create_student (add a student to the database using form data, and have a link back to /home)
  server.mount_proc "/create_student" do |request, response|
   @person = Person.create(request.query)
-  template = ERB.new(File.read "new_student.html.erb")
+  template = ERB.new(File.read "new_student.html.erb") #Is there a way to just put an html link here rather than creating a new, minimal .html.erb file?
   response.body = template.result
 end
 
