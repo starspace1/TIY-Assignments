@@ -1,5 +1,3 @@
- # Handle requests to:
-
 require "webrick"
 require "./person"
 

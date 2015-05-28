@@ -23,7 +23,11 @@ cars = car_strings.map do |car_string|
 
   a_car_array = car_string.split(",")
 
-  Car.create(make: a_car_array[1], model: a_car_array[2], category: a_car_array[3], min_price: a_car_array[4].to_f, highway_mpg: a_car_array[8].to_i)
+  Car.create(make: a_car_array[1], 
+             model: a_car_array[2], 
+             category: a_car_array[3], 
+             min_price: a_car_array[4].to_f, 
+             highway_mpg: a_car_array[8].to_i)
 
 end
 
