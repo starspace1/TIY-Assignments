@@ -5,14 +5,47 @@ server = WEBrick::HTTPServer.new(Port: 8000, DocumentRoot: "./public")
 
 server.mount_proc "/todos" do |request, response|
   # populate some instance variables in here
+  @todos = Todo.all
   template = ERB.new(File.read "index.html.erb")
   response.body = template.result
 end
 
-# there are several URLs that must be handled
+# /completed
+server.mount_proc "/completed" do |request, response|
+  # populate some instance variables in here
+  @todos = Todo.where is_complete: true
+  template = ERB.new(File.read "index.html.erb")
+  response.body = template.result
+end
+
+# /active
+server.mount_proc "/active" do |request, response|
+  # populate some instance variables in here
+  @todos = Todo.where is_complete: false
+  template = ERB.new(File.read "index.html.erb")
+  response.body = template.result
+end
+
+# /toggle_all_complete
+server.mount_proc "/toggle_all_complete" do |request, response|
+  # populate some instance variables in here
+  Todo.update_all is_complete: true
+  template = ERB.new(File.read "index.html.erb")
+  response.body = template.result
+end
+
+# /destroy_all_complete
+server.mount_proc "/destroy_all_complete" do |request, response|
+  Todo.where(is_complete: true).delete_all
+  template = ERB.new(File.read "index.html.erb")
+  response.body = template.result
+end
+
 
 server.mount_proc "/create_todo" do |request, response|
   # handle data coming in from the form
+  @new_todo = Todo.create(request.query)
+  @new_todo.update(is_complete: false) #Seems weird to do this here - can provide default value when creating?
   response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
   # the above line saves you from needing to make a separate template to show a new todo by itself
   # in general, POST requests from forms should be redirected that way
@@ -35,11 +68,23 @@ end
 
 class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
 
+# Handle the following:
+# creating a new todo
+# updating a particular todo (that is, saving the changes in its name to the database) /todo\/(\d+)\/update/
+# toggling a particular todo's completeness /todo\/(\d+)\/toggle_complete/
+# destroying a particular todo /todo\/(\d+)\/destroy/
+
   def do_GET(request, response)
     # this method handles GET requests to your server like "/todo/4/edit" - 
     # really any GET request that has "/todo/" in it 
     # you will need to add some code so the template displays properly
     # and lets you edit a single todo
+
+     # editing a particular todo (that is, showing the edit form for that todo) /todo\/(\d+)\/edit/
+
+    # request.path =~ /todo\/(\d+)/
+    # id = $1
+
     template = ERB.new(File.read "index.html.erb")
     response.body = template.result(binding) # binding is required here.
   end
@@ -49,6 +94,10 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
     # note that there are two aspects of that pattern that change; you'll need to write code to handle 
     # requests to do several different kinds of things to your todo items
     # remember how to get back to the main page after updating or destroying your todo
+    # request.path =~ /todo\/(\d+)/
+    # id = $1
+
+
   end
 
 end
