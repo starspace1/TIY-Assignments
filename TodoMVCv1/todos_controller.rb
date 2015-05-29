@@ -26,8 +26,7 @@ end
 # /toggle_all_complete
 server.mount_proc "/toggle_all_complete" do |request, response|
   Todo.update_all is_complete: true
-  template = ERB.new(File.read "index.html.erb")
-  response.body = template.result
+  response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
 end
 
 # /destroy_all_complete
@@ -78,7 +77,7 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
 
     template = ERB.new(File.read "index.html.erb")
     response.body = template.result(binding) # binding is required here.
-    
+
   end
 
   def do_POST(request, response)
@@ -93,6 +92,9 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
 
     if request.path =~ /todo\/(\d+)\/destroy/
       @todo.destroy
+      response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
+    elsif request.path =~ /todo\/(\d+)\/toggle_complete/
+      @todo.toggle!(:is_complete)
       response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
     end
 
