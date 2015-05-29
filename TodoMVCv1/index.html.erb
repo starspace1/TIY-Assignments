@@ -27,14 +27,8 @@
           <li>
             <!-- If this list item is being edited, the div.view can be omitted -->
             <div class="view">
-             <form action="/todo/<%= todo.id %>/toggle_complete" method="POST">
-              <!-- The following if/else is ugly and stupid and there must be a better way. -->
-              <!-- Setting value or checked using todo.is_complete doesn't work. -->
-              <% if todo.is_complete %> 
-                <input class="toggle" type="checkbox" checked>
-              <% else %>
-                <input class="toggle" type="checkbox">
-              <% end %>  
+              <form action="/todo/<%= todo.id %>/toggle_complete" method="POST">
+                  <input class="toggle" type="checkbox"  <%= "checked" if todo.is_complete %> > 
               </form>
               <a><%= todo.title %></a>
               <form action="/todo/<%= todo.id %>/destroy" method="POST">
