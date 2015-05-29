@@ -25,7 +25,7 @@ end
 
 # /toggle_all_complete
 server.mount_proc "/toggle_all_complete" do |request, response|
-  Todo.update_all is_complete: true
+  Todo.update_all is_complete: Todo.more_to_do?
   response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
 end
 
@@ -68,7 +68,7 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
 # toggling a particular todo's completeness /todo\/(\d+)\/toggle_complete/
 # destroying a particular todo /todo\/(\d+)\/destroy/
 
-  def do_GET(request, response)
+def do_GET(request, response)
     # this method handles GET requests to your server like "/todo/4/edit" - 
     # really any GET request that has "/todo/" in it 
     # you will need to add some code so the template displays properly
@@ -103,4 +103,4 @@ end
 
 server.mount "/todo/", TodoServlet # this catches requests to the server that begin with "/todo/" and
                                  # has the MyServlet class deal with them
-server.start
+                                 server.start
