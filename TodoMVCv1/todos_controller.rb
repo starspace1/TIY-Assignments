@@ -38,11 +38,13 @@ end
 
 server.mount_proc "/create_todo" do |request, response|
   # handle data coming in from the form
-  @new_todo = Todo.create(request.query)
-  @new_todo.update(is_complete: false) #Seems weird to do this here - can provide default value when creating?
+  if request.query["title"].gsub(' ','').length > 0
+    @new_todo = Todo.create(request.query)
+    @new_todo.update(is_complete: false) #Seems weird to do this here - can provide default value when creating?
+  end
+
   response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
-  # the above line saves you from needing to make a separate template to show a new todo by itself
-  # in general, POST requests from forms should be redirected that way
+
 end
 
 server.mount_proc "/shutdown" do |request, response|
