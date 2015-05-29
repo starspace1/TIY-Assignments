@@ -2,8 +2,10 @@ require 'webrick'
 require './todo'
 
 server = WEBrick::HTTPServer.new(Port: 8000, DocumentRoot: "./public")
+@filter = "todos"
 
 server.mount_proc "/todos" do |request, response|
+  @filter = "todos"
   @todos = Todo.all
   template = ERB.new(File.read "index.html.erb")
   response.body = template.result
@@ -11,6 +13,7 @@ end
 
 # /completed
 server.mount_proc "/completed" do |request, response|
+  @filter = "completed"
   @todos = Todo.where is_complete: true
   template = ERB.new(File.read "index.html.erb")
   response.body = template.result
@@ -18,6 +21,7 @@ end
 
 # /active
 server.mount_proc "/active" do |request, response|
+  @filter = "active"
   @todos = Todo.where is_complete: false
   template = ERB.new(File.read "index.html.erb")
   response.body = template.result
@@ -38,7 +42,7 @@ end
 
 server.mount_proc "/create_todo" do |request, response|
   # handle data coming in from the form
-  if request.query["title"].gsub(' ','').length > 0
+  if request.query["title"].gsub(' ','').length > 0 #validates_presence_of instead is better
     @new_todo = Todo.create(request.query)
   end
 
