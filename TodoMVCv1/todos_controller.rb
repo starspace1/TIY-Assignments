@@ -40,7 +40,6 @@ server.mount_proc "/create_todo" do |request, response|
   # handle data coming in from the form
   if request.query["title"].gsub(' ','').length > 0
     @new_todo = Todo.create(request.query)
-    @new_todo.update(is_complete: false) #Seems weird to do this here - can provide default value when creating?
   end
 
   response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
