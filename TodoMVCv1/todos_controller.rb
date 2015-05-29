@@ -4,7 +4,6 @@ require './todo'
 server = WEBrick::HTTPServer.new(Port: 8000, DocumentRoot: "./public")
 
 server.mount_proc "/todos" do |request, response|
-  # populate some instance variables in here
   @todos = Todo.all
   template = ERB.new(File.read "index.html.erb")
   response.body = template.result
@@ -12,7 +11,6 @@ end
 
 # /completed
 server.mount_proc "/completed" do |request, response|
-  # populate some instance variables in here
   @todos = Todo.where is_complete: true
   template = ERB.new(File.read "index.html.erb")
   response.body = template.result
@@ -20,7 +18,6 @@ end
 
 # /active
 server.mount_proc "/active" do |request, response|
-  # populate some instance variables in here
   @todos = Todo.where is_complete: false
   template = ERB.new(File.read "index.html.erb")
   response.body = template.result
@@ -28,7 +25,6 @@ end
 
 # /toggle_all_complete
 server.mount_proc "/toggle_all_complete" do |request, response|
-  # populate some instance variables in here
   Todo.update_all is_complete: true
   template = ERB.new(File.read "index.html.erb")
   response.body = template.result
@@ -80,13 +76,9 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
     # you will need to add some code so the template displays properly
     # and lets you edit a single todo
 
-     # editing a particular todo (that is, showing the edit form for that todo) /todo\/(\d+)\/edit/
-
-    # request.path =~ /todo\/(\d+)/
-    # id = $1
-
     template = ERB.new(File.read "index.html.erb")
     response.body = template.result(binding) # binding is required here.
+    
   end
 
   def do_POST(request, response)
@@ -94,13 +86,20 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
     # note that there are two aspects of that pattern that change; you'll need to write code to handle 
     # requests to do several different kinds of things to your todo items
     # remember how to get back to the main page after updating or destroying your todo
-    # request.path =~ /todo\/(\d+)/
-    # id = $1
+    
+    request.path =~ /todo\/(\d+)/
+    id = $1
+    @todo = Todo.find(id)
 
+    if request.path =~ /todo\/(\d+)\/destroy/
+      @todo.destroy
+      response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
+    end
 
   end
 
 end
+
 server.mount "/todo/", TodoServlet # this catches requests to the server that begin with "/todo/" and
                                  # has the MyServlet class deal with them
 server.start
