@@ -32,8 +32,7 @@ end
 # /destroy_all_complete
 server.mount_proc "/destroy_all_complete" do |request, response|
   Todo.where(is_complete: true).delete_all
-  template = ERB.new(File.read "index.html.erb")
-  response.body = template.result
+  response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
 end
 
 
