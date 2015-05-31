@@ -47,7 +47,11 @@
       <% if Todo.all.size > 0 %>
         <footer id="footer">
           <!-- This should be `0 items left` by default -->
-          <span id="todo-count"><strong><%= Todo.num_left_to_do %></strong> items left</span>
+          <% if Todo.num_left_to_do == 1 %>
+            <span id="todo-count"><%= Todo.num_left_to_do %> item left</span>
+          <% else %>
+            <span id="todo-count"><%= Todo.num_left_to_do %> items left</span>
+          <% end %>
           <ul id="filters">
             <li>
               <a <%= 'class="selected' if @filter == "todos" %> href="/todos">All</a>
