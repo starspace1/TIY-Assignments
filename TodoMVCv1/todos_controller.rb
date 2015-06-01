@@ -3,6 +3,7 @@ require './todo'
 
 server = WEBrick::HTTPServer.new(Port: 8000, DocumentRoot: "./public")
 @filter = "todos"
+@editing_id = -1
 
 server.mount_proc "/todos" do |request, response|
   @filter = "todos"
