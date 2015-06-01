@@ -41,7 +41,7 @@
             <% else %>
               <li class="editing">
                 <form action="/todo/<%= todo.id %>/update" method="POST">
-                  <input class="edit" type="text" value=<%= todo.title %> name="title">
+                  <input class="edit" type="text" value="<%= todo.title %>" name="title">
                 </form>
               </li>
             <% end %>

@@ -42,11 +42,10 @@ end
 
 
 server.mount_proc "/create_todo" do |request, response|
-  # handle data coming in from the form
-  if request.query["title"].gsub(' ','').length > 0 #validates_presence_of instead is better
+  request.query["title"].strip!
+  if request.query["title"].length > 0
     @new_todo = Todo.create(request.query)
   end
-
   response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
 
 end
@@ -92,7 +91,7 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
 
       template = ERB.new(File.read "index.html.erb")
       response.body = template.result(binding) # binding is required here.
-      
+
   end
 
   def do_POST(request, response)
