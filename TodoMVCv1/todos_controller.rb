@@ -73,11 +73,21 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
 # toggling a particular todo's completeness /todo\/(\d+)\/toggle_complete/
 # destroying a particular todo /todo\/(\d+)\/destroy/
 
-def do_GET(request, response)
+  def do_GET(request, response)
     # this method handles GET requests to your server like "/todo/4/edit" - 
     # really any GET request that has "/todo/" in it 
     # you will need to add some code so the template displays properly
     # and lets you edit a single todo
+
+    request.path =~ /todo\/(\d+)/
+    id = $1
+    @todo = Todo.find(id)
+
+    if request.path =~ /todo\/(\d+)\/edit/
+      @editing_id = id
+      # response.body = "Going to edit id #{@editing_id}" THIS WORKS, @editing_id is properly set. But @editing_id isn't accessible from index.html.erb. WHY?
+      response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
+    end
 
     template = ERB.new(File.read "index.html.erb")
     response.body = template.result(binding) # binding is required here.
@@ -85,6 +95,7 @@ def do_GET(request, response)
   end
 
   def do_POST(request, response)
+
     # this method handles any POST request that matches a pattern like "/todo/5/update" or "/todo/47/destroy" etc
     # note that there are two aspects of that pattern that change; you'll need to write code to handle 
     # requests to do several different kinds of things to your todo items
@@ -99,6 +110,11 @@ def do_GET(request, response)
       response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
     elsif request.path =~ /todo\/(\d+)\/toggle_complete/
       @todo.toggle!(:is_complete)
+      response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
+    elsif request.path =~ /todo\/(\d+)\/update/
+      #do the edit here
+      @editing_id = -1
+      @todo.update(request.query)
       response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
     end
 
