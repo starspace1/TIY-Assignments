@@ -80,19 +80,19 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
     # you will need to add some code so the template displays properly
     # and lets you edit a single todo
 
+    @todos = Todo.all
+
     request.path =~ /todo\/(\d+)/
     id = $1
     @todo = Todo.find(id)
 
     if request.path =~ /todo\/(\d+)\/edit/
-      @editing_id = id
-      # response.body = "Going to edit id #{@editing_id}" THIS WORKS, @editing_id is properly set. But @editing_id isn't accessible from index.html.erb. WHY?
-      response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
+      @editing_id = id.to_i
     end
 
-    template = ERB.new(File.read "index.html.erb")
-    response.body = template.result(binding) # binding is required here.
-
+      template = ERB.new(File.read "index.html.erb")
+      response.body = template.result(binding) # binding is required here.
+      
   end
 
   def do_POST(request, response)
