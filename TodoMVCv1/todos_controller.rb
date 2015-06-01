@@ -112,9 +112,15 @@ class TodoServlet < WEBrick::HTTPServlet::AbstractServlet
       @todo.toggle!(:is_complete)
       response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
     elsif request.path =~ /todo\/(\d+)\/update/
-      #do the edit here
       @editing_id = -1
-      @todo.update(request.query)
+    
+      request.query["title"].strip!
+      if request.query["title"].length > 0
+        @todo.update(request.query)
+      else
+        @todo.destroy
+      end
+
       response.set_redirect WEBrick::HTTPStatus::MovedPermanently, "/todos"
     end
 
