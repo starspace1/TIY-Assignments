@@ -7,5 +7,5 @@ ActiveRecord::Base.establish_connection adapter: 'sqlite3',
 ActiveRecord::Base.connection.create_table 'todos',
   force: true do |table|
     table.string :title
-    table.boolean :is_complete, :default => false
+    table.boolean :is_complete, default: false
   end
