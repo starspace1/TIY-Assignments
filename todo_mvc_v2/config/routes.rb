@@ -1,4 +1,25 @@
 Rails.application.routes.draw do
+
+  get 'todos/index'#, as: :todos_list
+
+  get 'todos/completed'
+
+  get 'todos/active'
+
+  post 'todos/toggle_all_complete'
+
+  post 'todos/destroy_all_complete'
+
+  post 'todos/create_todo' => 'todos#create_todo'
+
+  get 'todo/:id/edit' => 'todos#edit'#, as: :todo
+
+  post 'todo/:id/destroy' => 'todos#destroy'#, as: :todo
+
+  post 'todo/:id/toggle_complete' => 'todos#toggle_complete'#, as: :todo
+
+  post 'todo/:id/update' => 'todos#update'#, as: :todo
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
