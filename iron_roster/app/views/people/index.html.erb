@@ -12,12 +12,14 @@
     </tr>
     <% @people.each do |person| %>
     <tr>
-      <td><%= person.name %></td>
+      <td><a href = "/people/<%= person.id %>"><%= person.name %></td>
       <td><%= person.subject %></td>
       <td><a href = "http://www.github.com/<%= person.github_account %>"><%= person.github_account %></a></td>
+      <td><a href = "/people/<%= person.id %>/delete">Delete Student</td>
     </tr>
     <% end %>
   </table>
   <br><a href = "/people/new_student_form">Add New Student</a><br>
+  <br><a href = "/people">All Students</a><br>
 </body>
 </html>

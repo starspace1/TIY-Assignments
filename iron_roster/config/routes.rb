@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   post 'people/:id/update' => 'people#update'
 
   # delete a person
-  post 'people/:id/delete' => 'people#delete'
+  get 'people/:id/delete' => 'people#delete'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

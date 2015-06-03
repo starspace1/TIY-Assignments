@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @people = Person.find(params[:id])
+    @people = Person.where(id: params[:id])
     render :index
   end
 
@@ -27,7 +27,8 @@ class PeopleController < ApplicationController
   end
 
   def delete
-
+    Person.find(params[:id]).destroy
+    redirect_to '/people'
   end
 
 
