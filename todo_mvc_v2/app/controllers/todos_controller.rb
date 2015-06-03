@@ -65,11 +65,11 @@ class TodosController < ApplicationController
   def update
     
     #Get rid of whitespace
-    request.query["title"].strip!
+    params[:todo][:title].strip!
     
     #Update with the new title as long as it's not empty
-    if request.query["title"].length > 0
-      Todo.find(params[:id]).update(title: params[:title])
+   if params[:todo][:title].length > 0
+      Todo.find(params[:id]).update(params.require(:todo).permit(:title))
     #If it's empty, delete the todo
     else
       Todo.find(params[:id]).destroy

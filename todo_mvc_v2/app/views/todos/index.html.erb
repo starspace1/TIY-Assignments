@@ -41,7 +41,7 @@
             <% else %>
               <li class="editing">
                 <form action="/todo/<%= todo.id %>/update" method="POST">
-                  <input class="edit" type="text" value="<%= todo.title %>" name="title">
+                  <input class="edit" type="text" value="<%= todo.title %>" name="todo[title]">
                 </form>
               </li>
             <% end %>
@@ -59,7 +59,7 @@
           <% end %>
           <ul id="filters">
             <li>
-              <a <%= 'class="selected' if @filter == "todos" %> href="/todos">All</a>
+              <a <%= 'class="selected' if @filter == "todos" %> href="/todos/index">All</a>
             </li>
             <li>
               <a <%= 'class="selected' if @filter == "active" %> href="/todos/active">Active</a>
