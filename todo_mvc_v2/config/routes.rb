@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   get 'todos/active'
 
-  post 'todos/toggle_all_complete'
+  post 'todos/toggle_all_complete' => 'other#toggle_all_complete'
 
-  post 'todos/destroy_all_complete'
+  post 'todos/destroy_all_complete' => 'other#destroy_all_complete'
 
   post 'todos/create_todo' => 'todos#create_todo'
 
