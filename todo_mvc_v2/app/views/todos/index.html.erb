@@ -59,13 +59,13 @@
           <% end %>
           <ul id="filters">
             <li>
-              <a <%= 'class="selected' if @filter == "todos" %> href="/todos/index">All</a>
+              <a <%= 'class="selected' if @flag == 'all' %> href="/todos/index">All</a>
             </li>
             <li>
-              <a <%= 'class="selected' if @filter == "active" %> href="/todos/active">Active</a>
+              <a <%= 'class="selected' if @flag == 'active' %> href="/todos/active">Active</a>
             </li>
             <li>
-              <a <%= 'class="selected' if @filter == "completed" %> href="/todos/completed">Completed</a>
+              <a <%= 'class="selected' if @flag == 'completed' %> href="/todos/completed">Completed</a>
             </li>
           </ul>
           <!-- Hidden if no completed items are left ↓ -->
