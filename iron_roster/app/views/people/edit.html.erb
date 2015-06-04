@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Student</title>
+</head>
+<body>
+  <h1>Edit your student</h1>
+  <form action="/people/<%= @person.id %>/update" method="POST">
+    <fieldset>
+      <legend>Editing Student</legend>
+      <label for="name">Name</label>
+      <input id = "name" type="text" name="person[name]" value="<%= @person.name %>" ><br><br>
+      <label for="subject">Subject</label>
+      <input id = "subject" type="text" name="person[subject]" value="<%= @person.subject %>"><br><br>
+      <label for="github">Github Account</label>
+      <input id ="github" type="text" name="person[github_account]" value="<%= @person.github_account %>"><br><br>
+      <button>Update!</button>
+    </fieldset>
+  </form>
+  <br><a href = "/people">Back Home</a>
+</body>
+</html>

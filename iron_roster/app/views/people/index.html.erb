@@ -8,14 +8,15 @@
     <tr>
       <th>Name</th>
       <th>Subject</th>
-      <th>GitHub Account</th>
+      <th>GitHub</th>
     </tr>
     <% @people.each do |person| %>
     <tr>
       <td><a href = "/people/<%= person.id %>"><%= person.name %></td>
       <td><%= person.subject %></td>
       <td><a href = "http://www.github.com/<%= person.github_account %>"><%= person.github_account %></a></td>
-      <td><a href = "/people/<%= person.id %>/delete">Delete Student</td>
+      <td><a href = "/people/<%= person.id %>/edit">Edit</td>
+      <td><a href = "/people/<%= person.id %>/delete">Delete</td>
     </tr>
     <% end %>
   </table>

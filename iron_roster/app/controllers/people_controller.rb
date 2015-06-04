@@ -19,11 +19,13 @@ class PeopleController < ApplicationController
   end
 
   def edit
-
+    @person = Person.find(params[:id])
   end
 
   def update
-
+    @person = Person.find(params[:id])
+    @person.update(params.require(:person).permit(:name, :subject, :github_account))
+    redirect_to '/people'
   end
 
   def delete
