@@ -1,0 +1,10 @@
+<h1><%= @post.title %></h1>
+<p> By: <%= @post.author %> </p>
+
+<%= @post.text %><br>
+
+<br><%= link_to 'Edit post', edit_path %><br>
+
+<br><%= link_to 'Delete post', delete_path %><br>
+
+<br><a href = "/posts">Back Home</a>

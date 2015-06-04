@@ -1,0 +1,12 @@
+<h1>Add a Post</h1>
+  <%= form_for @post do |p| %>
+  <%= p.label :title %>
+  <%= p.text_field :title %>
+  <%= p.label :author %>
+  <%= p.text_field :author %>
+  <%= p.label :text %>
+  <%= p.text_field :text %>
+  <%= p.submit %>
+<% end %>
+
+<br><a href = "/posts">Back Home</a>
