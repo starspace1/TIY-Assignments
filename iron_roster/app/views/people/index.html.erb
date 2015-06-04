@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>People</title>
-</head>
-<body>
-    <table>
-    <tr>
-      <th>Name</th>
-      <th>Subject</th>
-      <th>GitHub</th>
-    </tr>
-    <% @people.each do |person| %>
-    <tr>
-      <td><a href = "/people/<%= person.id %>"><%= person.name %></td>
-      <td><%= person.subject %></td>
-      <td><a href = "http://www.github.com/<%= person.github_account %>"><%= person.github_account %></a></td>
-      <td><a href = "/people/<%= person.id %>/edit">Edit</td>
-      <td><a href = "/people/<%= person.id %>/delete">Delete</td>
-    </tr>
-    <% end %>
-  </table>
-  <br><a href = "/people/new_student_form">Add New Student</a><br>
-  <br><a href = "/people">All Students</a><br>
-</body>
-</html>
+<h1>All Students</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Subject</th>
+    <th>GitHub</th>
+  </tr>
+  <% @people.each do |person| %>
+  <tr>
+    <td><%= link_to person.name, person_path(person) %></td>
+    <td><%= person.subject %></td>
+    <td><a href = "http://www.github.com/<%= person.github_account %>"><%= person.github_account %></a></td>
+    <td><a href = "/people/<%= person.id %>/edit">Edit</td>
+    <td><a href = "/people/<%= person.id %>/delete">Delete</td>
+  </tr>
+  <% end %>
+</table>
+<br><%= link_to 'Add a new person', new_person_path %><br>
+<br><a href = "/people">All Students</a><br>

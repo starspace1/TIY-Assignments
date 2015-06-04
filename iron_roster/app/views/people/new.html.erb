@@ -1,4 +1,4 @@
-<h1>Edit <%= @person.name %></h1>
+<h1>Add a Person</h1>
   <%= form_for @person do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
@@ -6,7 +6,7 @@
   <%= f.text_field :subject %>
   <%= f.label :github_account, 'Github Account' %>
   <%= f.text_field :github_account %>
-  <%= f.submit 'Edit my data' %>
+  <%= f.submit %>
 <% end %>
 
 <br><a href = "/people">Back Home</a>

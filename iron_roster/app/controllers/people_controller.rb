@@ -9,11 +9,11 @@ class PeopleController < ApplicationController
     render :index
   end
 
-  def new_student_form
-    @people = Person.all
+  def new
+   @person = Person.new
   end
 
-  def create_student
+  def create
     Person.create(params.require(:person).permit(:name, :subject, :github_account))
     redirect_to '/people'
   end

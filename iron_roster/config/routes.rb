@@ -4,23 +4,22 @@ Rails.application.routes.draw do
   get 'people' => 'people#index'
 
   # present a form for a new person
-  get 'people/new_student_form' => 'people#new_student_form'
-
-  # save the new person in the db
-  post 'people/create_student' => 'people#create_student'
+  get 'people/new', as: :new_person
 
   # show one person
-  get 'people/:id' => 'people#show'
+  get 'people/:id' => 'people#show', as: :person
 
   # present a form to edit a person
-  get 'people/:id/edit' => 'people#edit'
+  get 'people/:id/edit' => 'people#edit', as: :edit
+
+  # save the new person in the db
+  post 'people' => 'people#create'
 
   # save the updated person in the db
-  post 'people/:id/update' => 'people#update'
+  patch 'people/:id' => 'people#update'
 
   # delete a person
   get 'people/:id/delete' => 'people#delete'
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
