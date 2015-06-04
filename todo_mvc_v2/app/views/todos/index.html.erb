@@ -31,7 +31,7 @@
                   <form action="/todo/<%= todo.id %>/toggle_complete" method="POST">
                       <input class="toggle" type="checkbox"  <%= "checked" if todo.is_complete %> > 
                   </form>
-                  <a href="/todo/<%= todo.id %>/edit"><%= todo.title %></a>
+                  <%= link_to todo.title, todo_path(id: todo.id) %>
                   <form action="/todo/<%= todo.id %>/destroy" method="POST">
                     <button class="destroy"></button>
                   </form>

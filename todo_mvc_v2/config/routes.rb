@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   post 'todos/create_todo' => 'todos#create_todo'
 
-  get 'todo/:id/edit' => 'todos#edit'#, as: :todo
+  get 'todo/:id/edit' => 'todos#edit', as: :todo
 
   post 'todo/:id/destroy' => 'todos#destroy'#, as: :todo
 
