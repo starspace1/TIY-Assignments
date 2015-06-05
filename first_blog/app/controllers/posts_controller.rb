@@ -24,7 +24,7 @@ class PostsController < ApplicationController
 
   def update
     Post.find(params[:id]).update(params.require(:post).permit(:title, :author, :text))
-    redirect_to '/posts'
+    redirect_to post_path
   end
 
   def delete
