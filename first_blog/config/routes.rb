@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   post 'posts/:post_id/comments' => 'comments#create', as: :post_comments
 
+  patch 'posts/:post_id/comments/:comment_id' => 'comments#update', as: :post_comment
+
   get 'posts/:post_id/comments/:comment_id/edit' => 'comments#edit', as: :edit_comment
 
   get 'posts/:post_id/comments/:comment_id/delete' => 'comments#delete', as: :delete_comment

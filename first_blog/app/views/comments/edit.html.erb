@@ -1,0 +1,10 @@
+<h1>Edit a Comment</h1>
+  <%= form_for [@post, @comment] do |c| %>
+  <%= c.label :author %>
+  <%= c.text_field :author %>
+  <%= c.label :text %>
+  <%= c.text_field :text %>
+  <%= c.submit 'Edit my data'%>
+<% end %>
+
+<br><a href = "/posts">Back Home</a>
