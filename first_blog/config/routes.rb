@@ -6,13 +6,20 @@ Rails.application.routes.draw do
 
   get 'posts/:id' => 'posts#show', as: :post
 
-  get 'posts/:id/edit' => 'posts#edit', as: :edit
+  get 'posts/:id/edit' => 'posts#edit', as: :edit_post
 
   post 'posts' => 'posts#create'
   
   patch 'posts/:id' => 'posts#update'
 
-  get 'posts/:id/delete' => 'posts#delete', as: :delete
+  get 'posts/:id/delete' => 'posts#delete', as: :delete_post
+
+  post 'posts/:post_id/comments' => 'comments#create', as: :post_comments
+
+  get 'posts/:post_id/comments/:comment_id/edit' => 'comments#edit', as: :edit_comment
+
+  get 'posts/:post_id/comments/:comment_id/delete' => 'comments#delete', as: :delete_comment
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
