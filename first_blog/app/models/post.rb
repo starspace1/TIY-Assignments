@@ -11,4 +11,6 @@ class Post < ActiveRecord::Base
 
   end
 
+  self.per_page = 10
+
 end
