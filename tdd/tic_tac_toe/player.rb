@@ -6,6 +6,8 @@ class Player
     @symbol = symbol
   end
 
-
+  def place_mark(position, board)
+    board.place_mark(position, @symbol)
+  end
 
 end
