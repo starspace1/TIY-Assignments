@@ -1,56 +1,39 @@
 class Board
-
   attr_reader :spaces
 
   def initialize
-    @spaces = [nil]*9
+    @spaces = [nil] * 9
   end
 
   def place_mark(space, mark)
-    
-    if space_valid?(space) && space_available?(space)
-      @spaces[space] = mark
-    end
-    
+    return false unless valid_space? space
+    @spaces[space] = mark
   end
 
-  def available_spaces
-    spaces.select {|space| space==nil}
+  def num_available_spaces
+    spaces.count { |space| space.nil? }
   end
 
-  def space_available? space
-    @spaces[space] == nil
-  end
-
-  def space_valid? space
-    (0..9).include? space
+  def valid_space?(space)
+    @spaces[space].nil? && (0..9).include?(space)
   end
 
   def build_grid
-
     print "\n\n"
-
     (0..8).each do |i|
-
-      if spaces[i] # space is occupied with X or O
-        print spaces[i]
-      else # space i is nil, just print the space #
-        print i
-      end
-
+      print_space i
       # Add some formatting to make the grid
-      if ![2, 5, 8].include? i
-        print " | "
-      end
-
-      if [2, 5].include? i
-        print "\n----------\n"
-      end
-
+      print ' | ' unless [2, 5, 8].include? i
+      print "\n----------\n" if [2, 5].include? i
     end
-
     print "\n\n\n"
+  end
 
-  end #def build_grid
-
+  def print_space(i)
+    if spaces[i] # space is occupied with X or O
+      print spaces[i]
+    else # space i is nil, just print the space #
+      print i
+    end
+  end
 end

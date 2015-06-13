@@ -71,8 +71,7 @@ class GameTest < MiniTest::Test
     @game.player_o.place_mark(2, @game.board)
     @game.player_o.place_mark(5, @game.board)
     @game.player_o.place_mark(7, @game.board)
-    assert_equal 0, @game.board.available_spaces.size
+    assert_equal 0, @game.board.num_available_spaces
     refute @game.winner
   end
-
 end

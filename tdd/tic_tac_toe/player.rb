@@ -1,8 +1,7 @@
 class Player
-
   attr_reader :symbol, :spaces, :computer
 
-  def initialize(symbol, computer=false)
+  def initialize(symbol, computer = false)
     @symbol = symbol
     @spaces = []
     @computer = computer
@@ -11,7 +10,6 @@ class Player
   def place_mark(position, board)
     success = board.place_mark(position, @symbol)
     spaces.push(position) if success
-    return success
+    success
   end
-
 end

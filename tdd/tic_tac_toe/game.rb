@@ -2,116 +2,102 @@ require './board'
 require './player'
 
 class Game
-
   attr_reader :board, :player_x, :player_o, :winner
 
-  WINNING_TRIPLES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+  WINNING_TRIPLES = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+                     [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                     [0, 4, 8], [2, 4, 6]]
 
-  def initialize()
+  def initialize
     @board = Board.new
     @player_x = Player.new(:X)
     @player_o = Player.new(:O, true) # Player O is computer
     @winner = nil
     @current_player = nil
-  end #def initialize()
+  end
 
   def game_over?
-    self.check_for_winner
-    @board.available_spaces.size == 0 || @winner != nil
-  end #def game_over?
+    check_for_winner
+    @board.num_available_spaces == 0 || !@winner.nil?
+  end
 
   def check_for_winner
-
     @winner = @player_x if WINNING_TRIPLES.include? @player_x.spaces.sort
     @winner = @player_o if WINNING_TRIPLES.include? @player_o.spaces.sort
-
-  end #def check_for_winner
+  end
 
   def start_game
+    puts "\nWelcome to tic-tac-toe. You are player X."
 
-    puts "Welcome to tic-tac-toe. You are player X."
+    choose_first_player
 
-    self.choose_first_player
-
-    while !self.game_over?
-
-      if @current_player == @player_x #your turn
-
+    until game_over?
+      if @current_player == @player_x # your turn
         @board.build_grid
-        
-        success = false
-
-        while !success
-
-          print "Please choose an available space [0-8]: "
-
-          # Save the space the player wants to occupy
-          selected_space = gets.chomp.to_i
-
-          # Make sure that the space is available and valid
-          if @player_x.place_mark(selected_space, @board)
-            success = true
-          else
-            puts "You have selected an invalid space."
-          end
-
-        end
-
+        human_turn
         @current_player = @player_o
-      
-      else #computer's turn
-
-        puts "\nPlayer O's turn."
-        selected_space = self.random_available_space
-        @player_o.place_mark(selected_space, @board)
-        puts "Player O selected space #{selected_space}."
+      else # computer's turn
+        computer_turn
         @current_player = @player_x
-
       end
-
     end
-
-    @board.build_grid
-
-    puts "Game is over."
-    
-    if @winner
-       puts "Winner is player #{@winner.symbol}."
-    else
-      puts "Tie."
-    end
-
-
-  end #def start_game
+    print_result
+  end
 
   def choose_first_player
-
     if rand(2) == 0
       @current_player = @player_o
     else
       @current_player = @player_x
     end
-
     puts "Player #{@current_player.symbol} goes first."
-
-  end #def choose_first_player
+  end
 
   def random_available_space
-
     found_space = false
 
-    while !found_space
-
+    until found_space
       # Get a random number between 0 and 8
       space = rand(9)
 
-      #Check the board to see if this space is available
-      found_space = @board.space_available? space
-
+      # Check the board to see if this space is available
+      found_space = @board.valid_space? space
     end
-
     space
+  end
 
-  end #def random_available_space
+  def print_result
+    @board.build_grid
+    puts 'Game is over.'
 
-end #class Game
+    if @winner
+      puts "Winner is player #{@winner.symbol}."
+    else
+      puts 'Tie.'
+    end
+  end
+
+  def computer_turn
+    puts "\nPlayer O's turn."
+    selected_space = random_available_space
+    @player_o.place_mark(selected_space, @board)
+    puts "Player O selected space #{selected_space}."
+  end
+
+  def human_turn
+    success = false
+    until success
+      print 'Please choose an available space [0-8]: '
+
+      # Save the space the player wants to occupy
+      selected_space = gets.chomp.to_i
+
+      # Make sure that the space is available and valid
+      if @player_x.place_mark(selected_space, @board)
+        success = true
+      else
+        puts 'You have selected an invalid space.'
+      end
+    end
+  end
+end

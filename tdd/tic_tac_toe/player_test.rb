@@ -5,7 +5,6 @@ require './player'
 require './board'
 
 class PlayerTest < MiniTest::Test
-
   def setup
     @player = Player.new(:X)
   end
@@ -32,5 +31,4 @@ class PlayerTest < MiniTest::Test
     @player.place_mark(0, @board)
     assert_equal :X, @board.spaces[0]
   end
-
 end
