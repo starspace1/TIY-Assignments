@@ -28,20 +28,23 @@ class Game
 
   def start_game
     puts "\nWelcome to tic-tac-toe. You are player X."
-
+    
     choose_first_player
-
+    
     until game_over?
-      if @current_player == @player_x # your turn
-        @board.build_grid
-        human_turn
-        @current_player = @player_o
-      else # computer's turn
-        computer_turn
-        @current_player = @player_x
-      end
+      @current_player.take_turn(@board)
+      switch_players
     end
+    
     print_result
+  end
+
+  def switch_players
+    if @current_player == @player_x
+      @current_player = @player_o
+    else
+      @current_player = @player_x
+    end
   end
 
   def choose_first_player
@@ -64,27 +67,4 @@ class Game
     end
   end
 
-  def computer_turn
-    puts "\nPlayer O's turn."
-    selected_space = @board.random_available_space
-    @player_o.place_mark(selected_space, @board)
-    puts "Player O selected space #{selected_space}."
-  end
-
-  def human_turn
-    success = false
-    until success
-      print 'Please choose an available space [0-8]: '
-
-      # Save the space the player wants to occupy
-      selected_space = gets.chomp.to_i
-
-      # Make sure that the space is available and valid
-      if @player_x.place_mark(selected_space, @board)
-        success = true
-      else
-        puts 'You have selected an invalid space.'
-      end
-    end
-  end
 end
