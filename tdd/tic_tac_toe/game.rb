@@ -65,14 +65,30 @@ class Game
       if @current_player == @player_x #your turn
 
         self.build_grid
-        print "Please choose an available space [0-8]: "
-        selected_space = gets.chomp.to_i
-        @player_x.place_mark(selected_space, @board)
+        
+        success = false
+
+        while !success
+
+          print "Please choose an available space [0-8]: "
+
+          # Save the space the player wants to occupy
+          selected_space = gets.chomp.to_i
+
+          # Make sure that the space is available and valid
+          if @player_x.place_mark(selected_space, @board)
+            success = true
+          else
+            puts "You have selected an invalid space."
+          end
+
+        end
+
         @current_player = @player_o
       
       else #computer's turn
 
-        puts "Player O's turn."
+        puts "\nPlayer O's turn."
         selected_space = self.random_available_space
         @player_o.place_mark(selected_space, @board)
         puts "Player O selected space #{selected_space}."

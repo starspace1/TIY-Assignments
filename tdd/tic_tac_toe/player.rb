@@ -8,7 +8,9 @@ class Player
   end
 
   def place_mark(position, board)
-    spaces.push(position) if board.place_mark(position, @symbol)
+    success = board.place_mark(position, @symbol)
+    spaces.push(position) if success
+    return success
   end
 
 end
