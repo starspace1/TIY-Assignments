@@ -10,7 +10,7 @@ class Game
   def initialize()
     @board = Board.new
     @player_x = Player.new(:X)
-    @player_o = Player.new(:O)
+    @player_o = Player.new(:O, true) # Player O is computer
     @winner = nil
     @current_player = nil
   end #def initialize()
@@ -27,33 +27,6 @@ class Game
 
   end #def check_for_winner
 
-  def build_grid
-
-    print "\n\n"
-
-    (0..8).each do |i|
-
-      if @board.spaces[i] # space is occupied with X or O
-        print @board.spaces[i]
-      else # space i is nil, just print the space #
-        print i
-      end
-
-      # Add some formatting to make the grid
-      if ![2, 5, 8].include? i
-        print " | "
-      end
-
-      if [2, 5].include? i
-        print "\n----------\n"
-      end
-
-    end
-
-    print "\n\n\n"
-
-  end #def build_grid
-
   def start_game
 
     puts "Welcome to tic-tac-toe. You are player X."
@@ -64,7 +37,7 @@ class Game
 
       if @current_player == @player_x #your turn
 
-        self.build_grid
+        @board.build_grid
         
         success = false
 
@@ -98,7 +71,7 @@ class Game
 
     end
 
-    self.build_grid
+    @board.build_grid
 
     puts "Game is over."
     
@@ -142,7 +115,3 @@ class Game
   end #def random_available_space
 
 end #class Game
-
-@game = Game.new
-
-@game.start_game

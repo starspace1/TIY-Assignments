@@ -1,10 +1,11 @@
 class Player
 
-  attr_reader :symbol, :spaces
+  attr_reader :symbol, :spaces, :computer
 
-  def initialize(symbol)
+  def initialize(symbol, computer=false)
     @symbol = symbol
     @spaces = []
+    @computer = computer
   end
 
   def place_mark(position, board)

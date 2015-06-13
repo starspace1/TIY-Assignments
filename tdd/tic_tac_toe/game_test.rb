@@ -61,4 +61,18 @@ class GameTest < MiniTest::Test
     assert_equal @game.player_o, @game.winner
   end
 
+  def test_tie_game
+    @game.player_x.place_mark(1, @game.board)
+    @game.player_x.place_mark(3, @game.board)
+    @game.player_x.place_mark(4, @game.board)
+    @game.player_x.place_mark(6, @game.board)
+    @game.player_x.place_mark(8, @game.board)
+    @game.player_o.place_mark(0, @game.board)
+    @game.player_o.place_mark(2, @game.board)
+    @game.player_o.place_mark(5, @game.board)
+    @game.player_o.place_mark(7, @game.board)
+    assert_equal 0, @game.board.available_spaces.size
+    refute @game.winner
+  end
+
 end
