@@ -56,7 +56,7 @@ class Game
 
   def start_game
 
-    puts "Welcome to tic-tac-toe. You are player x."
+    puts "Welcome to tic-tac-toe. You are player X."
 
     self.choose_first_player
 
@@ -66,13 +66,16 @@ class Game
 
         self.build_grid
         print "Please choose an available space [0-8]: "
-        desired_space = gets.chomp.to_i
-        @player_x.place_mark(desired_space, @board)
+        selected_space = gets.chomp.to_i
+        @player_x.place_mark(selected_space, @board)
         @current_player = @player_o
       
       else #computer's turn
 
-        @player_o.place_mark(0, @board)
+        puts "Player O's turn."
+        selected_space = self.random_available_space
+        @player_o.place_mark(selected_space, @board)
+        puts "Player O selected space #{selected_space}."
         @current_player = @player_x
 
       end
@@ -95,14 +98,32 @@ class Game
   def choose_first_player
 
     if rand(2) == 0
-      @current_player == @player_o
-      puts "The computer plays first."
+      @current_player = @player_o
     else
       @current_player = @player_x
-      puts "You play first."
     end
 
+    puts "Player #{@current_player.symbol} goes first."
+
   end #def choose_first_player
+
+  def random_available_space
+
+    found_space = false
+
+    while !found_space
+
+      # Get a random number between 0 and 8
+      space = rand(9)
+
+      #Check the board to see if this space is available
+      found_space = @board.space_available? space
+
+    end
+
+    space
+
+  end #def random_available_space
 
 end #class Game
 
