@@ -36,4 +36,14 @@ class Board
       print i
     end
   end
+
+  def random_available_space
+    found_space = false
+
+    until found_space
+      space = rand(9) # Get a random number between 0 and 8
+      found_space = valid_space? space # Make sure it's valid
+    end
+    space
+  end
 end

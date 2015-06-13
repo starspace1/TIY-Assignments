@@ -53,19 +53,6 @@ class Game
     puts "Player #{@current_player.symbol} goes first."
   end
 
-  def random_available_space
-    found_space = false
-
-    until found_space
-      # Get a random number between 0 and 8
-      space = rand(9)
-
-      # Check the board to see if this space is available
-      found_space = @board.valid_space? space
-    end
-    space
-  end
-
   def print_result
     @board.build_grid
     puts 'Game is over.'
@@ -79,7 +66,7 @@ class Game
 
   def computer_turn
     puts "\nPlayer O's turn."
-    selected_space = random_available_space
+    selected_space = @board.random_available_space
     @player_o.place_mark(selected_space, @board)
     puts "Player O selected space #{selected_space}."
   end
