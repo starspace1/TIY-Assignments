@@ -34,11 +34,7 @@ class Player
     success = false
     until success
       print 'Please choose an available space [0-8]: '
-
-      # Save the space the player wants to occupy
       selected_space = gets.chomp.to_i
-
-      # Make sure that the space is available and valid
       if place_mark(selected_space, board)
         success = true
       else

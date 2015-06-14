@@ -1,3 +1,4 @@
+require 'set'
 require './board'
 require './player'
 
@@ -16,26 +17,16 @@ class Game
     @current_player = nil
   end
 
-  def game_over?
-    check_for_winner
-    @board.num_available_spaces == 0 || !@winner.nil?
-  end
-
-  def check_for_winner
-    @winner = @player_x if WINNING_TRIPLES.include? @player_x.spaces.sort
-    @winner = @player_o if WINNING_TRIPLES.include? @player_o.spaces.sort
-  end
-
   def start_game
     puts "\nWelcome to tic-tac-toe. You are player X."
-    
+    check_for_human_opponent
     choose_first_player
-    
-    until game_over?
+    keep_playing = true
+    while keep_playing
       @current_player.take_turn(@board)
+      keep_playing = false if game_over?
       switch_players
-    end
-    
+    end 
     print_result
   end
 
@@ -47,6 +38,12 @@ class Game
     end
   end
 
+  def check_for_human_opponent
+    print "\nIs there another human player? [Y/N]: "
+    ans = gets.chomp
+    @player_o = Player.new(:O) if ["Y", "y"].include?(ans)
+  end
+
   def choose_first_player
     if rand(2) == 0
       @current_player = @player_o
@@ -56,15 +53,28 @@ class Game
     puts "Player #{@current_player.symbol} goes first."
   end
 
+  def game_over?
+    check_for_winner
+    (@board.num_available_spaces == 0) || (!@winner.nil?)
+  end
+
+  def check_for_winner
+    x_set = @player_x.spaces.to_set
+    o_set = @player_o.spaces.to_set
+
+    WINNING_TRIPLES.each do |triple|
+      @winner = @player_x if x_set.superset?(triple.to_set)
+      @winner = @player_o if o_set.superset?(triple.to_set)
+    end
+  end
+
   def print_result
     @board.build_grid
     puts 'Game is over.'
-
     if @winner
       puts "Winner is player #{@winner.symbol}."
     else
       puts 'Tie.'
     end
   end
-
 end
