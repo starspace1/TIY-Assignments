@@ -1,3 +1,6 @@
+require 'term/ansicolor'
+include Term::ANSIColor
+
 class Board
   attr_reader :spaces
 
@@ -31,7 +34,11 @@ class Board
 
   def print_space(i)
     if spaces[i] # space is occupied with X or O
-      print spaces[i]
+      if spaces[i] == :O
+        print magenta, bold, "#{spaces[i]}", reset
+      else
+        print cyan, bold, "#{spaces[i]}", reset
+      end
     else # space i is nil, just print the space #
       print i
     end
