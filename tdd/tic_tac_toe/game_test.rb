@@ -96,4 +96,12 @@ class GameTest < MiniTest::Test
     assert_equal :O, @game.board.spaces[1]
   end
 
+  def test_o_wins_if_possible_in_one_move
+    @game.player_o.place_mark(4, @game.board)
+    @game.player_x.place_mark(1, @game.board)
+    @game.player_o.place_mark(3, @game.board)
+    @game.player_x.place_mark(0, @game.board)
+    @game.player_o.take_turn(@game.board)
+    assert_equal :O, @game.board.spaces[5]
+  end
 end
