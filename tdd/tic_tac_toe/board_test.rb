@@ -53,4 +53,15 @@ class BoardTest < MiniTest::Test
     @board.place_mark(1, :X)
     assert_equal [0, 1, 2], @board.spaces_occupied_by(:X)
   end
+
+  def test_can_build_grid
+    desired_board = "\n\n" +
+                    "0 | 1 | 2\n" +
+                    "----------\n" +
+                    "3 | 4 | 5\n" +
+                    "----------\n" +
+                    "6 | 7 | 8" +
+                    "\n\n\n" 
+    assert_output(desired_board) {@board.build_grid}
+  end
 end
