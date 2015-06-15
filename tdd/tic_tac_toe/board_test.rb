@@ -46,4 +46,11 @@ class BoardTest < MiniTest::Test
     @board.place_mark(3, :O)
     assert_equal :O, @board.spaces[3]
   end
+
+  def test_can_get_spaces_occupied_by_x
+    @board.place_mark(0, :X)
+    @board.place_mark(2, :X)
+    @board.place_mark(1, :X)
+    assert_equal [0, 1, 2], @board.spaces_occupied_by(:X)
+  end
 end

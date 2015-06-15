@@ -46,4 +46,12 @@ class Board
     end
     space
   end
+
+  def spaces_occupied_by(symbol)
+    a = []
+    (0..8).each do |i|
+      a << i if spaces[i] == symbol
+    end
+    return a
+  end
 end
