@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>People</title>
+</head>
+<body>
+    <table>
+    <tr>
+      <th>Name</th>
+      <th>Subject</th>
+      <th>GitHub Account</th>
+      <th>Is Student</th>
+    </tr>
+    <% @people.each do |person| %>
+    <tr>
+      <td><%= person.name %></td>
+      <td><%= person.subject %></td>
+      <td><a href = "http://www.github.com/<%= person.github_account %>"><%= person.github_account %></a></td>
+      <td><%= person.student %></td>
+    </tr>
+    <% end %>
+  </table>
+  <br><a href = "/new_student_form">Add New Student</a><br>
+  <br><a href = "/shutdown">Shut Down</a>
+</body>
+</html>

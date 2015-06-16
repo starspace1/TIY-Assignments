@@ -12,11 +12,9 @@ server.mount_proc "/home" do |request, response|
 end
 
 @filters.each do |f|
-  puts "#{f}"
   server.mount_proc "/#{f}" do |request, response|
     @cars = Car.read_data
     @cars = @cars.select{|car| car.send("#{f}" + "?")}
-    puts "#this_filter was {@this_filter} but is changing to #{f}."
     @this_filter = f
     template = ERB.new(File.read "template.html.erb")
     response.body = template.result
