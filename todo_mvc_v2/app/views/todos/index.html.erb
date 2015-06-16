@@ -31,7 +31,7 @@
                   <form action="/todo/<%= todo.id %>/toggle_complete" method="POST">
                       <input class="toggle" type="checkbox"  <%= "checked" if todo.is_complete %> > 
                   </form>
-                  <a href="/todo/<%= todo.id %>/edit"><%= todo.title %></a>
+                  <%= link_to todo.title, todo_path(id: todo.id) %>
                   <form action="/todo/<%= todo.id %>/destroy" method="POST">
                     <button class="destroy"></button>
                   </form>
@@ -59,13 +59,13 @@
           <% end %>
           <ul id="filters">
             <li>
-              <a <%= 'class="selected' if @filter == "todos" %> href="/todos/index">All</a>
+              <a <%= 'class="selected' if @flag == 'all' %> href="/todos/index">All</a>
             </li>
             <li>
-              <a <%= 'class="selected' if @filter == "active" %> href="/todos/active">Active</a>
+              <a <%= 'class="selected' if @flag == 'active' %> href="/todos/active">Active</a>
             </li>
             <li>
-              <a <%= 'class="selected' if @filter == "completed" %> href="/todos/completed">Completed</a>
+              <a <%= 'class="selected' if @flag == 'completed' %> href="/todos/completed">Completed</a>
             </li>
           </ul>
           <!-- Hidden if no completed items are left ↓ -->

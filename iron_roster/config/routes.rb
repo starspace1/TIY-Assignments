@@ -1,24 +1,25 @@
 Rails.application.routes.draw do
 
-  get 'todos/index'#, as: :todos_list
+  # list everybody
+  get 'people' => 'people#index'
 
-  get 'todos/completed'
+  # present a form for a new person
+  get 'people/new', as: :new_person
 
-  get 'todos/active'
+  # show one person
+  get 'people/:id' => 'people#show', as: :person
 
-  post 'todos/toggle_all_complete' => 'other#toggle_all_complete'
+  # present a form to edit a person
+  get 'people/:id/edit' => 'people#edit', as: :edit
 
-  post 'todos/destroy_all_complete' => 'other#destroy_all_complete'
+  # save the new person in the db
+  post 'people' => 'people#create'
 
-  post 'todos/create_todo' => 'todos#create_todo'
+  # save the updated person in the db
+  patch 'people/:id' => 'people#update'
 
-  get 'todo/:id/edit' => 'todos#edit', as: :todo
-
-  post 'todo/:id/destroy' => 'todos#destroy'#, as: :todo
-
-  post 'todo/:id/toggle_complete' => 'todos#toggle_complete'#, as: :todo
-
-  post 'todo/:id/update' => 'todos#update'#, as: :todo
+  # delete a person
+  get 'people/:id/delete' => 'people#delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
