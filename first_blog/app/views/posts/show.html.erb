@@ -1,0 +1,34 @@
+<h1><strong><%= @post.title %></strong></h1>
+ 
+<h3> By: <%= @post.author %></h3>
+
+<p><%= @post.text %></p>
+
+<p>
+  <%= link_to 'Edit', edit_post_path %>
+  <%= link_to 'Delete', delete_post_path %>
+</p>
+
+<p><strong>Comments</strong></p>
+<% @post.comments.each do |comment| %>
+  <p>
+    <strong><%= comment.author %>: </strong>
+    <%= comment.text %>
+    <%= link_to 'Edit', edit_comment_path(@post, comment) %>
+    <%= link_to 'Delete', delete_comment_path(@post, comment) %>
+  </p>
+
+<% end %>
+
+<p><strong>Add a Comment</strong></p>
+<%= form_for [@post, @comment] do |c| %>
+  <%= c.label :author %>
+  <%= c.text_field :author %>
+  <p><%= c.label :text %>
+  <%= c.text_field :text %></p>
+  <%= c.submit %>
+<% end %>
+
+
+
+<br><a href = "/posts">Back Home</a>
