@@ -18,32 +18,36 @@ class Car
 
     @salesman_name += name #does it matter if we have @name or self.name here?
 
-    def land_yacht?
-      self.weight > 3500
-    end
+  def land_yacht?
+    self.weight > 3500
+  end
 
-    def to_s
-       "#{salesman_name}" #does it matter if we have self.salesman_name or @salesman_name here?
-    end
+  def to_s
+   "#{salesman_name}" #does it matter if we have self.salesman_name or @salesman_name here?
+  end
 
+  def self.read_data
+
+    car_strings = IO.readlines("mtcars.csv")
+    car_strings.shift
+
+    cars = car_strings.map do |car_string|
+
+      car_string.gsub!('"','')
+
+      a_car_array = car_string.split(",")
+
+      Car.new(a_car_array[0], a_car_array[1].to_i,
+        a_car_array[2].to_i, a_car_array[4].to_i, 
+        a_car_array[6].to_i, a_car_array[7]) 
+
+    end
 
   end
 
 end
 
-car_strings = IO.readlines("mtcars.csv")
-
-cars = car_strings.map do |car_string|
-
-  car_string.gsub!('"','')
-
-  a_car_array = car_string.split(",")
-
-    Car.new(a_car_array[0], a_car_array[1].to_i,
-            a_car_array[2].to_i, a_car_array[4].to_i, 
-            a_car_array[6].to_i, a_car_array[7]) 
-
-end
+cars = Car.read_data
 
 puts "The car with the best gas mileage is #{cars.max_by{|car| car.gas_mileage}}."
 puts
