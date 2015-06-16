@@ -1,9 +1,5 @@
-
 *.csv
 *.cache
-
 *.sqlite3
-
 *.db
-
 *.log
