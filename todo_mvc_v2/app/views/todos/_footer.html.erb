@@ -1,0 +1,13 @@
+<footer id="footer">
+  <span id="todo-count"><%= pluralize(Todo.num_left_to_do, 'item') %> left</span>
+  <ul id="filters">
+    <li><%= link_to_unless_current("Home", { action: "index" }) %></li>
+    <li><%= link_to_unless_current("Active", { action: "active" }) %></li>
+    <li><%= link_to_unless_current("Completed", { action: "completed" }) %></li>
+  </ul>
+  <% if Todo.anything_completed? %>
+    <form action="/todos/destroy_all_complete" method="POST">
+      <button id="clear-completed">Clear completed</button>
+    </form>
+  <% end %>    
+</footer>
