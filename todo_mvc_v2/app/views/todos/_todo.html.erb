@@ -1,19 +1,19 @@
 <% if @editing_id != todo.id %>
   <li <%= 'class="completed"' if todo.is_complete %>>
     <div class="view">
-      <form action="/todo/<%= todo.id %>/toggle_complete" method="POST">
-          <input class="toggle" type="checkbox"  <%= "checked" if todo.is_complete %> > 
-      </form>
-      <%= link_to todo.title, todo_path(id: todo.id) %>
-      <form action="/todo/<%= todo.id %>/destroy" method="POST">
-        <button class="destroy"></button>
-      </form>
+      <%= form_for todo, method: :post, url: toggle_todo_path(todo) do |f| %>
+        <%= f.check_box :is_complete, :class => "toggle" %>
+      <% end %>
+      <%= link_to todo.title, edit_todo_path(todo) %>
+      <%= form_for todo, :method => :delete do |f| %>
+        <%= f.button "", :class => "destroy" %>
+      <% end %>
     </div>
   </li>
 <% else %>
-  <li class="editing">
-    <form action="/todo/<%= todo.id %>/update" method="POST">
-      <input class="edit" type="text" value="<%= todo.title %>" name="todo[title]">
-    </form>
+  <li class = "editing">
+    <%= form_for todo do |f| %>
+      <%= f.text_field :title, :class => "edit" %>
+    <% end %>
   </li>
 <% end %>

@@ -1,24 +1,38 @@
 Rails.application.routes.draw do
 
-  get 'todos/index'#, as: :todos_list
+  root 'todos#index'
 
-  get 'todos/completed'
+  resources :todos do
+    member do
+      post 'toggle'
+    end
+    collection do
+      get 'index'
+      get 'completed'
+      get 'active'
+      post 'toggle_all_complete'
+      post 'destroy_all_complete'
+    end
+  end
 
-  get 'todos/active'
+#                     Prefix Verb   URI Pattern                           Controller#Action
+#                       root GET    /                                     todos#index
+#                toggle_todo POST   /todos/:id/toggle(.:format)           todos#toggle
+#                      todos GET    /todos/index(.:format)                todos#index
+#            completed_todos GET    /todos/completed(.:format)            todos#completed
+#               active_todos GET    /todos/active(.:format)               todos#active
+#  toggle_all_complete_todos POST   /todos/toggle_all_complete(.:format)  todos#toggle_all_complete
+# destroy_all_complete_todos POST   /todos/destroy_all_complete(.:format) todos#destroy_all_complete
+#                            GET    /todos(.:format)                      todos#index
+#                            POST   /todos(.:format)                      todos#create
+#                   new_todo GET    /todos/new(.:format)                  todos#new
+#                  edit_todo GET    /todos/:id/edit(.:format)             todos#edit
+#                       todo GET    /todos/:id(.:format)                  todos#show
+#                            PATCH  /todos/:id(.:format)                  todos#update
+#                            PUT    /todos/:id(.:format)                  todos#update
+#                            DELETE /todos/:id(.:format)                  todos#destroy
 
-  post 'todos/toggle_all_complete' => 'other#toggle_all_complete'
 
-  post 'todos/destroy_all_complete' => 'other#destroy_all_complete'
-
-  post 'todos/create_todo' => 'todos#create_todo'
-
-  get 'todo/:id/edit' => 'todos#edit', as: :todo
-
-  post 'todo/:id/destroy' => 'todos#destroy'#, as: :todo
-
-  post 'todo/:id/toggle_complete' => 'todos#toggle_complete'#, as: :todo
-
-  post 'todo/:id/update' => 'todos#update'#, as: :todo
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
