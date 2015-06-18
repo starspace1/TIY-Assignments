@@ -32,7 +32,7 @@ class CardTest < MiniTest::Test
   end
 
   def test_king_of_hearts_has_value_10
-    card = Card.new("K", "Hearts")
+    card = Card.new(:K, "Hearts")
     assert_equal 10, card.value
   end
 

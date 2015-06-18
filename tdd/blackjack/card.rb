@@ -7,10 +7,14 @@ class Card
   end
 
   def value
-    if @value.is_a?(String)
-      10
-    else
+    if @value.is_a?(Integer)
       @value
+    else
+      if @value == :A
+        1
+      else
+        10
+      end
     end
   end
 
