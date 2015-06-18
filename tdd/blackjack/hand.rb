@@ -11,10 +11,7 @@ class Hand
 
   def value
     val = @cards.inject(0) { |sum, c| sum + c.value }
-    val += 10 if num_aces >= 1
-    val -= 1 if num_aces == 2
-    val -= 2 if num_aces == 3
-    val
+    adjust_for_aces(val)
   end
 
   def num_aces
@@ -25,7 +22,17 @@ class Hand
     @cards << card
   end
 
-  def contains? card
+  def contains?(card)
     @cards.include? card
+  end
+
+  def adjust_for_aces(val)
+    return val if num_aces == 0
+    # If there's an ace, it's worth 10
+    # Unless that will make you bust, then it's worth 1 
+    if num_aces >= 1
+      val += 10 unless val + 10 > 21
+    end
+    val
   end
 end

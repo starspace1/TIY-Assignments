@@ -25,9 +25,9 @@ class HandTest < MiniTest::Test
     assert @hand.value
   end
 
-  def test_hand_value_is_11_when_ace_and_ace
+  def test_hand_value_is_12_when_ace_and_ace
     hand = Hand.new(Card.new(:A, "Spades"), Card.new(:A, "Clubs"))
-    assert_equal 11, hand.value
+    assert_equal 12, hand.value
   end
 
   def test_hand_value_is_15_when_5_and_jack
@@ -50,5 +50,17 @@ class HandTest < MiniTest::Test
     @hand.hit(new_card)
     assert_equal previous_size + 1, @hand.cards.size
     assert @hand.contains? new_card
+  end
+
+  def test_hand_value_is_14_when_5_8_and_ace
+    hand = Hand.new(Card.new(5, "Diamonds"), Card.new(8, "Spades"))
+    hand.hit(Card.new(:A, "Clubs"))
+    assert_equal 14, hand.value   
+  end
+
+  def test_hand_value_is_17_when_5_and_two_aces
+    hand = Hand.new(Card.new(5, "Diamonds"), Card.new(:A, "Spades"))
+    hand.hit(Card.new(:A, "Clubs"))
+    assert_equal 17, hand.value 
   end
 end
