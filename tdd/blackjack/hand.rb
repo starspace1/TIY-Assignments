@@ -27,7 +27,6 @@ class Hand
   end
 
   def adjust_for_aces(val)
-    return val if num_aces == 0
     # If there's an ace, it's worth 10
     # Unless that will make you bust, then it's worth 1 
     if num_aces >= 1
