@@ -26,9 +26,9 @@ class CardTest < MiniTest::Test
     assert_equal "Hearts", card.suit
   end
 
-  def test_1_of_spades_has_value_1
-    card = Card.new(1, "Spades")
-    assert_equal 1, card.value
+  def test_2_of_spades_has_value_2
+    card = Card.new(2, "Spades")
+    assert_equal 2, card.value
   end
 
   def test_king_of_hearts_has_value_10
