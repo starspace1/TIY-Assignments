@@ -30,4 +30,50 @@ class GameTest < MiniTest::Test
     assert @game.player_hand
     assert_equal Hand, @game.player_hand.class
   end
+
+  def test_game_player_can_hit
+    assert @game.hit!
+  end
+
+  def test_game_dealer_win
+    player_hand = Hand.new(Card.new(7, "Diamonds"), Card.new(10, "Diamonds"))
+    dealer_hand = Hand.new(Card.new(6, "Hearts"), Card.new(4, "Diamonds"))
+    dealer_hand.hit(Card.new(:A, "Diamonds"))
+    assert_equal "Dealer", @game.check_for_winner(player_hand, dealer_hand)
+  end
+
+  def test_game_player_win
+    player_hand = Hand.new(Card.new(6, "Diamonds"), Card.new(5, "Hearts"))
+    dealer_hand = Hand.new(Card.new(3, "Clubs"), Card.new(5, "Clubs"))
+    player_hand.hit(Card.new(:Q, "Spades"))
+    dealer_hand.hit(Card.new(:J, "Diamonds"))
+    assert_equal "Player", @game.check_for_winner(player_hand, dealer_hand)
+  end
+
+  def test_game_tie
+    player_hand = Hand.new(Card.new(6, "Diamonds"), Card.new(5, "Hearts"))
+    dealer_hand = Hand.new(Card.new(6, "Clubs"), Card.new(5, "Clubs"))
+    player_hand.hit(Card.new(:Q, "Spades"))
+    dealer_hand.hit(Card.new(:J, "Diamonds"))
+    assert_equal "Tie", @game.check_for_winner(player_hand, dealer_hand) 
+  end
+
+  def test_game_has_active_player
+    assert @game.active_player
+  end
+
+  def test_game_control_goes_to_player_at_start
+    game = Game.new
+    assert_equal "Player", game.active_player
+  end
+
+  def test_game_control_goes_to_dealer_after_player_hits
+    @game.hit!
+    assert_equal "Dealer", @game.active_player
+  end
+
+  def test_game_control_goes_to_dealer_after_player_stays
+    @game.stay
+    assert_equal "Dealer", @game.active_player
+  end
 end
