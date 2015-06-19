@@ -63,4 +63,11 @@ class HandTest < MiniTest::Test
     hand.hit(Card.new(:A, "Clubs"))
     assert_equal 17, hand.value 
   end
+
+  def test_hand_can_be_displayed
+    hand = Hand.new(Card.new(5, "Diamonds"), Card.new(:A, "Spades"))
+    assert_equal "5 of Diamonds, A of Spades", hand.to_s
+    hand.hit(Card.new(:A, "Clubs"))
+    assert_equal "5 of Diamonds, A of Spades, A of Clubs", hand.to_s
+  end
 end

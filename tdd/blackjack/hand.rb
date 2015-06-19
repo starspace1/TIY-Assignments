@@ -35,4 +35,8 @@ class Hand
     end
     val
   end
+
+  def to_s
+    @cards.map { |c| c.to_s }.join(", ")
+  end
 end
