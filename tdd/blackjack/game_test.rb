@@ -36,7 +36,7 @@ class GameTest < MiniTest::Test
   end
 
   def test_game_dealer_win
-    player_hand = Hand.new(Card.new(7, "Diamonds"), Card.new(10, "Diamonds"))
+    player_hand = Hand.new(Card.new(7, "Diamonds"), Card.new(:A, "Hearts"))
     dealer_hand = Hand.new(Card.new(6, "Hearts"), Card.new(4, "Diamonds"))
     dealer_hand.hit(Card.new(:A, "Diamonds"))
     assert_equal "Dealer", @game.check_for_winner(player_hand, dealer_hand)
@@ -58,22 +58,13 @@ class GameTest < MiniTest::Test
     assert_equal "Tie", @game.check_for_winner(player_hand, dealer_hand) 
   end
 
-  def test_game_has_active_player
-    assert @game.active_player
+  def test_dealer_hits_if_less_than_17
+    dealer_hand = Hand.new(Card.new(6, "Clubs"), Card.new(5, "Clubs"))
+    assert @game.dealer_response(dealer_hand)
   end
 
-  def test_game_control_goes_to_player_at_start
-    game = Game.new
-    assert_equal "Player", game.active_player
-  end
-
-  def test_game_control_goes_to_dealer_after_player_hits
-    @game.hit!
-    assert_equal "Dealer", @game.active_player
-  end
-
-  def test_game_control_goes_to_dealer_after_player_stays
-    @game.stay
-    assert_equal "Dealer", @game.active_player
+  def test_dealer_stands_if_17_or_over
+    dealer_hand = Hand.new(Card.new(:A, "Clubs"), Card.new(8, "Clubs"))
+    refute @game.dealer_response(dealer_hand)
   end
 end

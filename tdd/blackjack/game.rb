@@ -2,24 +2,35 @@ require './deck'
 require './hand'
 
 class Game
-  attr_reader :deck, :winner, :dealer_hand, :player_hand, :active_player
+  attr_reader :deck, :winner, :dealer_hand, :player_hand
 
   def initialize
     @deck = Deck.new
     @winner = nil
     @dealer_hand = Hand.new(@deck.draw, @deck.draw)
     @player_hand = Hand.new(@deck.draw, @deck.draw)
-    @active_player = "Player"
   end
 
   def hit!
     @player_hand.hit(@deck.draw)
     print_hands
-    @active_player = "Dealer"
+    dealer_response(@dealer_hand)
   end
 
   def stay
-    @active_player = "Dealer"
+    dealer_response(@dealer_hand)
+  end
+
+  def dealer_response(dealer_hand)
+    dealer_hit = @dealer_hand.hit(@deck.draw) if dealer_hand.value < 17
+    if dealer_hit
+      puts "Dealer hits."
+      print_hands
+    else
+      puts "Dealer stays."
+    end
+    check_for_winner(@player_hand, @dealer_hand)
+    dealer_hit
   end
 
   def start
@@ -33,19 +44,42 @@ class Game
   end
 
   def check_for_winner(player_hand, dealer_hand)
-    if(dealer_hand.value < 21)
-      @winner = "Player" if (player_hand.value > dealer_hand.value) || (player_hand.value == 21)
-    elsif(dealer_hand.value > 21)
-      @winner = "Player"
-    elsif(dealer_hand.value == 21)
-      if player_hand.value == 21
+    # If the value of the player's hand is 21, and the value of the dealer's hand is less, 
+    # the game should display the message "Blackjack! Player wins." 
+    # If both player and dealer have 21, the game should display the message "Push! No winner."
+    if (player_hand.value == 21)
+      if (dealer_hand.value < 21)
+        @winner = "Player"
+        puts "Blackjack! Player wins." 
+      elsif (dealer_hand.value == 21)
         @winner = "Tie"
-      else
-        @winner = "Dealer"
+        puts "Push! No winner."
       end
-    else
-      @winner = "Dealer"
     end
+
+    if (player_hand.value < 21)
+      if (dealer_hand.value > player_hand.value) && (dealer_hand.value <= 21)
+        @winner = "Dealer"
+        puts "Game over. Dealer wins."
+      elsif (dealer_hand.value < player_hand.value) && (dealer_hand.value <= 21)
+        @winner = "You"
+        puts "Game over. You win."
+      end
+    end
+    
+    # The player loses by ending up with a hand valued at greater than 21. 
+    # Otherwise, the player wins by ending up with a hand value greater than the dealer's hand value, 
+    # or if the dealer's hand value exceeds 21.
+    if (player_hand.value > 21)
+      @winner = "Dealer"
+      puts "You bust. Dealer wins."
+    end
+
+    if (dealer_hand.value > 21)
+      @winner = "You"
+      puts "Dealer busts. You win!"
+    end
+
     @winner
   end
 end
