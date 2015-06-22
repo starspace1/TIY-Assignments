@@ -14,6 +14,7 @@ class Game
   def hit!
     success = @player_hand.hit(@deck.draw)
     print_hands
+    check_for_winner(@player_hand, @dealer_hand)
     success
   end
 
@@ -44,19 +45,36 @@ class Game
   end
 
   def check_for_winner(player_hand, dealer_hand)
-    # If the value of the player's hand is 21, and the value of the dealer's hand is less, 
-    # the game should display the message "Blackjack! Player wins." 
-    # If both player and dealer have 21, the game should display the message "Push! No winner."
+    check_for_blackjack(player_hand, dealer_hand)
+    check_for_bust(player_hand, dealer_hand)
+    compare_hands(player_hand, dealer_hand)
+    @winner
+  end
+
+  def check_for_bust(player_hand, dealer_hand)
+    if player_hand.bust?
+      @winner = "Dealer"
+      puts "You bust. Dealer wins."
+    end
+    if dealer_hand.bust?
+      @winner = "You"
+      puts "Dealer busts. You win!"
+    end
+  end
+
+  def check_for_blackjack(player_hand, dealer_hand)
     if player_hand.blackjack?
-      if (dealer_hand.value < 21)
+      if !dealer_hand.blackjack?
         @winner = "Player"
         puts "Blackjack! Player wins." 
-      elsif (dealer_hand.blackjack?)
+      elsif dealer_hand.blackjack?
         @winner = "Tie"
         puts "Push! No winner."
       end
     end
+  end
 
+  def compare_hands(player_hand, dealer_hand)
     if player_hand.value < 21
       if (dealer_hand > player_hand) && (!dealer_hand.bust?)
         @winner = "Dealer"
@@ -66,20 +84,5 @@ class Game
         puts "Game over. You win."
       end
     end
-    
-    # The player loses by ending up with a hand valued at greater than 21. 
-    # Otherwise, the player wins by ending up with a hand value greater than the dealer's hand value, 
-    # or if the dealer's hand value exceeds 21.
-    if player_hand.bust?
-      @winner = "Dealer"
-      puts "You bust. Dealer wins."
-    end
-
-    if dealer_hand.bust?
-      @winner = "You"
-      puts "Dealer busts. You win!"
-    end
-
-    @winner
   end
 end
