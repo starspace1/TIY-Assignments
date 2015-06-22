@@ -1,6 +1,8 @@
 require './card'
 
 class Hand
+  include Comparable
+  
   attr_reader :cards
 
   def initialize(card_1, card_2)
@@ -37,5 +39,9 @@ class Hand
 
   def to_s
     @cards.map { |c| c.to_s }.join(", ")
+  end
+
+  def <=>(other_hand)
+    value <=> other_hand.value
   end
 end

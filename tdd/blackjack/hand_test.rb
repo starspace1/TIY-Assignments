@@ -70,4 +70,16 @@ class HandTest < MiniTest::Test
     hand.hit(Card.new(:A, "Clubs"))
     assert_equal "5 of Diamonds, A of Spades, A of Clubs", hand.to_s
   end
+
+  def test_hand_value_15_greater_than_hand_value_10
+    hand_15 = Hand.new(Card.new(5, "Diamonds"), Card.new(:A, "Spades"))
+    hand_10 = Hand.new(Card.new(4, "Diamonds"), Card.new(6, "Spades"))
+    assert hand_15 > hand_10
+  end
+
+  def test_hand_value_10_equal_to_hand_value_10
+    hand_10_1 = Hand.new(Card.new(5, "Diamonds"), Card.new(5, "Spades"))
+    hand_10_2 = Hand.new(Card.new(4, "Diamonds"), Card.new(6, "Spades"))
+    assert hand_10_1 == hand_10_2
+  end
 end
