@@ -82,4 +82,14 @@ class HandTest < MiniTest::Test
     hand_10_2 = Hand.new(Card.new(4, "Diamonds"), Card.new(6, "Spades"))
     assert hand_10_1 == hand_10_2
   end
+
+  def test_hand_has_blackjack_when_value_21
+    hand = Hand.new(Card.new(10, "Diamonds"), Card.new(:A, "Spades"))
+    assert hand.blackjack?
+  end
+
+  def test_hand_does_not_have_blackjack_when_value_10
+    hand = Hand.new(Card.new(5, "Diamonds"), Card.new(5, "Spades"))
+    refute hand.blackjack?
+  end
 end

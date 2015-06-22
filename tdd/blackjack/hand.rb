@@ -16,6 +16,10 @@ class Hand
     adjust_for_aces(val)
   end
 
+  def blackjack?
+    value == 21
+  end
+
   def num_aces
     @cards.count { |c| c.value == 1}
   end
