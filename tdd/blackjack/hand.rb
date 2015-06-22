@@ -20,6 +20,10 @@ class Hand
     value == 21
   end
 
+  def bust?
+    value > 21
+  end
+
   def num_aces
     @cards.count { |c| c.value == 1}
   end

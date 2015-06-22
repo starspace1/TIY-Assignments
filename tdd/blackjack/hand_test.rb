@@ -92,4 +92,20 @@ class HandTest < MiniTest::Test
     hand = Hand.new(Card.new(5, "Diamonds"), Card.new(5, "Spades"))
     refute hand.blackjack?
   end
+
+  def test_hand_busts_when_value_over_21
+    hand = Hand.new(Card.new(10, "Diamonds"), Card.new(10, "Spades"))
+    hand.hit(Card.new(5, "Clubs"))
+    assert hand.bust?
+  end
+
+  def test_hand_does_not_bust_when_value_equals_21
+    hand = Hand.new(Card.new(10, "Diamonds"), Card.new(:A, "Spades"))
+    refute hand.bust?
+  end
+
+  def test_hand_does_not_bust_when_value_under_21
+    hand = Hand.new(Card.new(10, "Diamonds"), Card.new(5, "Spades"))
+    refute hand.bust?
+  end
 end
