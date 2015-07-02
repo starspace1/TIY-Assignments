@@ -2,7 +2,6 @@ class TodosController < ApplicationController
   def index
     @todos = Todo.all
     @all_todos_count = Todo.count
-    @flag = 'all'
   end
 
   def show
@@ -14,14 +13,12 @@ class TodosController < ApplicationController
   def completed
     @todos = Todo.where is_complete: true
     @all_todos_count = Todo.count
-    @flag = 'completed'
     render :index
   end
 
   def active
     @todos = Todo.where is_complete: false
     @all_todos_count = Todo.count
-    @flag = 'active'
     render :index
   end
 
@@ -52,30 +49,29 @@ class TodosController < ApplicationController
     redirect_to root_url
   end
 
-  def toggle
-    Todo.find(params[:id]).toggle!(:is_complete)
-    redirect_to root_url
-  end
-
   def update
     
-    #Does params[:todo][:title] exist, if yes, update the title, if no, toggle is_completed
+    @todo = Todo.find(params[:id])
 
-    #Get rid of whitespace
-    params[:todo][:title].strip!
+    #Does params[:todo][:title] exist, if yes, update the title, if no, toggle is_completed
+    if params[:todo][:title]
+      #Get rid of whitespace
+      params[:todo][:title].strip!
     
-    #####Move to model code######
-    #Update with the new title as long as it's not empty
-    if params[:todo][:title].length > 0
-      Todo.find(params[:id]).update(params.require(:todo).permit(:title))
-    #If it's empty, delete the todo
+      #Update with the new title as long as it's not empty
+      if params[:todo][:title].length > 0
+        @todo.update(params.require(:todo).permit(:title))
+      #If it's empty, delete the todo
+      else
+        @todo.destroy
+      end
+
+      #Reset the editing ID instance variable
+      @editing_id = -1
     else
-      Todo.find(params[:id]).destroy
+      #Since there isn't a "title" in the params, that means we must be toggling
+      @todo.toggle!(:is_complete)
     end
-    #############################
-    
-    #Reset the editing ID instance variable
-    @editing_id = -1
     
     #Go back to the main page
     redirect_to root_url

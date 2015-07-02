@@ -3,9 +3,6 @@ Rails.application.routes.draw do
   root 'todos#index'
 
   resources :todos do
-    member do
-      post 'toggle'
-    end
     collection do
       get 'index'
       get 'completed'
@@ -17,7 +14,6 @@ Rails.application.routes.draw do
 
 #                     Prefix Verb   URI Pattern                           Controller#Action
 #                       root GET    /                                     todos#index
-#                toggle_todo POST   /todos/:id/toggle(.:format)           todos#toggle
 #                      todos GET    /todos/index(.:format)                todos#index
 #            completed_todos GET    /todos/completed(.:format)            todos#completed
 #               active_todos GET    /todos/active(.:format)               todos#active

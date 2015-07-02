@@ -1,7 +1,7 @@
 <% if @editing_id != todo.id %>
   <li <%= 'class="completed"' if todo.is_complete %>>
     <div class="view">
-      <%= form_for todo, method: :post, url: toggle_todo_path(todo) do |f| %>
+      <%= form_for todo, method: :patch, url: todo_path(todo) do |f| %>
         <%= f.check_box :is_complete, :class => "toggle" %>
       <% end %>
       <%= link_to todo.title, edit_todo_path(todo) %>
