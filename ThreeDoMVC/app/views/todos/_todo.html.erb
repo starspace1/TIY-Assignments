@@ -1,12 +1,12 @@
-<li>
+<li id=<%= "todo_#{todo.id}" %>>
   <div class="view">
     <form>
       <input class="toggle" type="checkbox" checked>
     </form>
     <a><%= todo.title %></a>
-    <form>
-      <button class="destroy"></button>
-    </form>
+    <%= form_for todo, :method => :delete, remote: true do |f| %>
+      <%= f.button "", :class => "destroy" %>
+    <% end %>
   </div>
   <form>
     <input class="edit" value="Taste the Ruby">

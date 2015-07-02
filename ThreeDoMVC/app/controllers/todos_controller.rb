@@ -11,4 +11,9 @@ class TodosController < ApplicationController
       @todo = Todo.create(params.require(:todo).permit(:title))
     end
   end
+
+  def destroy
+    @todo = Todo.find(params[:id])
+    @todo.destroy
+  end
 end
