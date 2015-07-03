@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
     collection do
       post 'destroy_all_complete'
+      post 'toggle_all_complete'
     end
   end
 
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   #                       root GET    /                                     todos#index
   #                toggle_todo POST   /todos/:id/toggle(.:format)           todos#toggle
   # destroy_all_complete_todos POST   /todos/destroy_all_complete(.:format) todos#destroy_all_complete
+  #  toggle_all_complete_todos POST   /todos/toggle_all_complete(.:format)  todos#toggle_all_complete
   #                      todos GET    /todos(.:format)                      todos#index
   #                            POST   /todos(.:format)                      todos#create
   #                   new_todo GET    /todos/new(.:format)                  todos#new

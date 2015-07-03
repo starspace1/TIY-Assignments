@@ -21,4 +21,9 @@ $( document ).ready(function() {
     $(this).parent().submit();
   });
 
+  $('#toggle-all').click(function() {
+    $(this).parent().submit();
+  });
+
+
 });
