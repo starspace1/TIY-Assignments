@@ -2,6 +2,7 @@ class TodosController < ApplicationController
   def index
     @todos = Todo.all
     @all_todos_count = Todo.count
+    @flag = 'all'
   end
 
   def show
@@ -13,12 +14,14 @@ class TodosController < ApplicationController
   def completed
     @todos = Todo.where is_complete: true
     @all_todos_count = Todo.count
+    @flag = 'completed'
     render :index
   end
 
   def active
     @todos = Todo.where is_complete: false
     @all_todos_count = Todo.count
+    @flag = 'active'
     render :index
   end
 
@@ -49,29 +52,30 @@ class TodosController < ApplicationController
     redirect_to root_url
   end
 
+  def toggle
+    Todo.find(params[:id]).toggle!(:is_complete)
+    redirect_to root_url
+  end
+
   def update
     
-    @todo = Todo.find(params[:id])
-
     #Does params[:todo][:title] exist, if yes, update the title, if no, toggle is_completed
-    if params[:todo][:title]
-      #Get rid of whitespace
-      params[:todo][:title].strip!
-    
-      #Update with the new title as long as it's not empty
-      if params[:todo][:title].length > 0
-        @todo.update(params.require(:todo).permit(:title))
-      #If it's empty, delete the todo
-      else
-        @todo.destroy
-      end
 
-      #Reset the editing ID instance variable
-      @editing_id = -1
+    #Get rid of whitespace
+    params[:todo][:title].strip!
+    
+    #####Move to model code######
+    #Update with the new title as long as it's not empty
+    if params[:todo][:title].length > 0
+      Todo.find(params[:id]).update(params.require(:todo).permit(:title))
+    #If it's empty, delete the todo
     else
-      #Since there isn't a "title" in the params, that means we must be toggling
-      @todo.toggle!(:is_complete)
+      Todo.find(params[:id]).destroy
     end
+    #############################
+    
+    #Reset the editing ID instance variable
+    @editing_id = -1
     
     #Go back to the main page
     redirect_to root_url
