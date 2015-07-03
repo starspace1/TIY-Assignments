@@ -1,4 +1,4 @@
-<li id=<%= "todo_#{todo.id}" %>>
+<li id=<%= "todo_#{todo.id}" %> <%= 'class=completed' if todo.is_complete %>>
   <div class="view">
     <%= form_for todo, url: toggle_todo_path(todo), method: :post, remote: true do |f| %>
       <%= f.check_box :is_complete, :class => "toggle" %>
