@@ -1,9 +1,5 @@
 $('<%= j(render @todo) %>').appendTo('#todo-list');
 
-$('#<%= "todo_#{@todo.id}" %>').find(".toggle").click(function() {
-  $(this).parent().submit();
-});
-
 $("#new-todo").val(''); 
 
 <%= hide_or_show_footer %>

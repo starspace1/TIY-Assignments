@@ -17,7 +17,7 @@
 
 $( document ).ready(function() {
 
-  $('.toggle').click(function() {
+  $("#todo-list").on("click", '.toggle', function(){
     $(this).parent().submit();
   });
 
