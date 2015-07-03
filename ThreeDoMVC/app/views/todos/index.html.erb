@@ -33,7 +33,7 @@
       </li>
     </ul>
     <!-- Hidden if no completed items are left ↓ -->
-    <form>
+    <form action="/todos/destroy_all_complete" method="POST" data-remote="true">
       <button id="clear-completed">Clear completed</button>
     </form>
   </footer>

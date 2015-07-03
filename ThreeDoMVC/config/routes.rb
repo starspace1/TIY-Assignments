@@ -6,19 +6,23 @@ Rails.application.routes.draw do
     member do
       post 'toggle'
     end
+    collection do
+      post 'destroy_all_complete'
+    end
   end
 
-  #      Prefix Verb   URI Pattern                 Controller#Action
-  #        root GET    /                           todos#index
-  # toggle_todo POST   /todos/:id/toggle(.:format) todos#toggle
-  #       todos GET    /todos(.:format)            todos#index
-  #             POST   /todos(.:format)            todos#create
-  #    new_todo GET    /todos/new(.:format)        todos#new
-  #   edit_todo GET    /todos/:id/edit(.:format)   todos#edit
-  #        todo GET    /todos/:id(.:format)        todos#show
-  #             PATCH  /todos/:id(.:format)        todos#update
-  #             PUT    /todos/:id(.:format)        todos#update
-  #             DELETE /todos/:id(.:format)        todos#destroy
+  #                     Prefix Verb   URI Pattern                           Controller#Action
+  #                       root GET    /                                     todos#index
+  #                toggle_todo POST   /todos/:id/toggle(.:format)           todos#toggle
+  # destroy_all_complete_todos POST   /todos/destroy_all_complete(.:format) todos#destroy_all_complete
+  #                      todos GET    /todos(.:format)                      todos#index
+  #                            POST   /todos(.:format)                      todos#create
+  #                   new_todo GET    /todos/new(.:format)                  todos#new
+  #                  edit_todo GET    /todos/:id/edit(.:format)             todos#edit
+  #                       todo GET    /todos/:id(.:format)                  todos#show
+  #                            PATCH  /todos/:id(.:format)                  todos#update
+  #                            PUT    /todos/:id(.:format)                  todos#update
+  #                            DELETE /todos/:id(.:format)                  todos#destroy
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

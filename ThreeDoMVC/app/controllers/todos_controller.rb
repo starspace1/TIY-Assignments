@@ -22,4 +22,9 @@ class TodosController < ApplicationController
     @todo.toggle!(:is_complete)
   end
 
+  def destroy_all_complete
+    complete_todos = Todo.where(is_complete: true)
+    @delete_ids = complete_todos.map{|todo| todo.id}
+    complete_todos.destroy_all
+  end
 end
