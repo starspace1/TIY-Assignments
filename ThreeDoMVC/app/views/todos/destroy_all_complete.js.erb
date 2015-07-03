@@ -2,7 +2,4 @@
   $('#<%= "todo_#{id}" %>').remove();
 <% end %>
 
-// Hide footer if no more todos are left
-<% if Todo.all.size == 0 %>
-  $('#footer').hide();
-<% end %>
+<%= hide_or_show_footer %>
