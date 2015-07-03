@@ -2,18 +2,23 @@ Rails.application.routes.draw do
 
   root 'todos#index'
 
-  resources :todos
+  resources :todos do
+    member do
+      post 'toggle'
+    end
+  end
 
-#      Prefix Verb   URI Pattern               Controller#Action
-#      root GET    /                         todos#index
-#     todos GET    /todos(.:format)          todos#index
-#           POST   /todos(.:format)          todos#create
-#  new_todo GET    /todos/new(.:format)      todos#new
-# edit_todo GET    /todos/:id/edit(.:format) todos#edit
-#      todo GET    /todos/:id(.:format)      todos#show
-#           PATCH  /todos/:id(.:format)      todos#update
-#           PUT    /todos/:id(.:format)      todos#update
-#           DELETE /todos/:id(.:format)      todos#destroy
+  #      Prefix Verb   URI Pattern                 Controller#Action
+  #        root GET    /                           todos#index
+  # toggle_todo POST   /todos/:id/toggle(.:format) todos#toggle
+  #       todos GET    /todos(.:format)            todos#index
+  #             POST   /todos(.:format)            todos#create
+  #    new_todo GET    /todos/new(.:format)        todos#new
+  #   edit_todo GET    /todos/:id/edit(.:format)   todos#edit
+  #        todo GET    /todos/:id(.:format)        todos#show
+  #             PATCH  /todos/:id(.:format)        todos#update
+  #             PUT    /todos/:id(.:format)        todos#update
+  #             DELETE /todos/:id(.:format)        todos#destroy
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

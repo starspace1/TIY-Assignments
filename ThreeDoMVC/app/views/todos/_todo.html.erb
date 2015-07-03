@@ -1,10 +1,10 @@
 <li id=<%= "todo_#{todo.id}" %>>
   <div class="view">
-    <form>
-      <input class="toggle" type="checkbox" checked>
-    </form>
+    <%= form_for todo, url: toggle_todo_path(todo), method: :post, remote: true do |f| %>
+      <%= f.check_box :is_complete, :class => "toggle" %>
+    <% end %>
     <a><%= todo.title %></a>
-    <%= form_for todo, :method => :delete, remote: true do |f| %>
+    <%= form_for todo, method: :delete, remote: true do |f| %>
       <%= f.button "", :class => "destroy" %>
     <% end %>
   </div>
