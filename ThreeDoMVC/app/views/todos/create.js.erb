@@ -3,3 +3,5 @@ $('<%= j(render @todo) %>').appendTo('#todo-list');
 $("#new-todo").val(''); 
 
 <%= hide_or_show_footer %>
+
+$("#todo-count strong").html(<%= Todo.num_left_to_do %>)

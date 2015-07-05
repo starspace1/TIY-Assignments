@@ -3,5 +3,9 @@ class Todo < ActiveRecord::Base
 
   def self.more_to_do?
     Todo.where(is_complete: false).any?
-  end  
+  end
+
+  def self.num_left_to_do
+    Todo.where(is_complete: false).size
+  end
 end

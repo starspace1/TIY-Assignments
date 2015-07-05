@@ -6,3 +6,4 @@ this_todo.find(".toggle").prop("checked", <%= @todo.is_complete %>)
   this_todo.removeClass("completed")
 <% end %>
 $('#toggle-all').prop("checked", <%= !Todo.more_to_do? %>)
+$("#todo-count strong").html(<%= Todo.num_left_to_do %>)

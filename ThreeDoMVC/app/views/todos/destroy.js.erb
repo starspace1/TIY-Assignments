@@ -1,2 +1,5 @@
 $('#<%= "todo_#{@todo.id}" %>').remove();
+
 <%= hide_or_show_footer %>
+
+$("#todo-count strong").html(<%= Todo.num_left_to_do %>)
