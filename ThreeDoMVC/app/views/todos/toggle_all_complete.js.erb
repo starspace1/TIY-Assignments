@@ -1,6 +1,12 @@
 <% @todos.each do |todo| %>
   this_todo = $('#<%= "todo_#{todo.id}" %>')
   this_todo.find(".toggle").prop("checked", <%= todo.is_complete %>)
-  this_todo.toggleClass("completed");
+  
+  <% if todo.is_complete %>
+    this_todo.addClass("completed")
+  <% else %>
+    this_todo.removeClass("completed")
+  <% end %>
+
 <% end %>
 
