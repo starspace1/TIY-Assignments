@@ -12,6 +12,7 @@ class TodosController < ApplicationController
   def destroy
     @todo = Todo.find(params[:id])
     @todo.destroy
+    @num_left_to_do = Todo.num_left_to_do
   end
 
   def toggle
