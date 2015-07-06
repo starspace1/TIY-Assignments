@@ -15,7 +15,7 @@
     </ul>
   </section>
   <!-- This footer should hidden by default and shown when there are todos -->
-  <footer id="footer">
+  <footer id="footer" <%="class = hidden" if Todo.count == 0 %>>
     <span id="todo-count"><strong><%= Todo.num_left_to_do %></strong> items left</span>
     <ul id="filters">
       <li>
@@ -28,7 +28,7 @@
         <a href="/completed">Completed</a>
       </li>
     </ul>
-    <form id="destroy-complete" action="/todos/destroy_all_complete" method="POST" data-remote="true">
+    <form id="destroy-complete" action="/todos/destroy_all_complete" method="POST" data-remote="true" <%="class = hidden" if !Todo.anything_completed? %>>
       <button id="clear-completed">Clear completed</button>
     </form>
   </footer>
