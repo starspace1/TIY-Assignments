@@ -7,3 +7,7 @@ this_todo.find(".toggle").prop("checked", <%= @todo.is_complete %>)
 <% end %>
 $('#toggle-all').prop("checked", <%= !Todo.more_to_do? %>)
 $("#todo-count strong").html(<%= Todo.num_left_to_do %>)
+
+<%= hide_or_show_footer %>
+
+<%= hide_or_show_clear_completed %>

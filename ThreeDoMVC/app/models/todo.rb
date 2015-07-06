@@ -8,4 +8,8 @@ class Todo < ActiveRecord::Base
   def self.num_left_to_do
     Todo.where(is_complete: false).size
   end
+
+  def self.anything_completed?
+    Todo.where(is_complete: true).any?
+  end
 end
