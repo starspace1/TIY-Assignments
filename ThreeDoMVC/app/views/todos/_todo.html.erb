@@ -8,7 +8,7 @@
       <%= f.button "", class: 'destroy' %>
     <% end %>
   </div>
-  <form>
-    <input class="edit" value="Taste the Ruby">
-  </form>
+  <%= form_for todo, method: :patch, remote: true do |f| %>
+    <%= f.text_field :title, class: 'edit' %>
+  <% end %>
 </li>

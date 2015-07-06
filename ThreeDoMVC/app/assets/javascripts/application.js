@@ -54,4 +54,8 @@ $( document ).ready(function() {
     $(this).addClass('selected');
   });
 
+  $('#todo-list').on('dblclick', 'a', function(){
+    $(this).parents('li').addClass('editing');
+  });
+
 });

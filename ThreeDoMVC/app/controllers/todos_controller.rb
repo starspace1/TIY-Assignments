@@ -32,4 +32,9 @@ class TodosController < ApplicationController
     @todos = Todo.all
     Todo.update_all is_complete: Todo.more_to_do?
   end
+
+  def update
+    @todo = Todo.find(params[:id])
+    @todo.update(params.require(:todo).permit(:title))
+  end
 end
