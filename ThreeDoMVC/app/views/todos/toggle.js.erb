@@ -1,11 +1,16 @@
+
 this_todo = $('#<%= "todo_#{@todo.id}" %>')
+
 this_todo.find(".toggle").prop("checked", <%= @todo.is_complete %>)
+
 <% if @todo.is_complete %>
   this_todo.addClass("completed")
 <% else %>
   this_todo.removeClass("completed")
 <% end %>
+
 $('#toggle-all').prop("checked", <%= !Todo.more_to_do? %>)
+
 $("#todo-count strong").html(<%= Todo.num_left_to_do %>)
 
 <%= hide_or_show_footer %>
