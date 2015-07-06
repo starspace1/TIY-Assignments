@@ -6,6 +6,7 @@ class TodosController < ApplicationController
 
   def create
     @todo = Todo.create(params.require(:todo).permit(:title))
+    @num_left_to_do = Todo.num_left_to_do
   end
 
   def destroy
@@ -16,6 +17,8 @@ class TodosController < ApplicationController
   def toggle
     @todo = Todo.find(params[:id])
     @todo.toggle!(:is_complete)
+    @no_more_to_do = !Todo.more_to_do?
+    @num_left_to_do = Todo.num_left_to_do
   end
 
   def destroy_all_complete

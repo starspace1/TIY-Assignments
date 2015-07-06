@@ -1,14 +1,13 @@
-
 this_todo = $('#<%= "todo_#{@todo.id}" %>')
 
 <% if @todo.is_complete %>
-  this_todo.addClass("completed")
+  this_todo.addClass('completed')
 <% else %>
-  this_todo.removeClass("completed")
+  this_todo.removeClass('completed')
 <% end %>
 
-$('#toggle-all').prop("checked", <%= !Todo.more_to_do? %>)
+$('#toggle-all').prop('checked', <%= @no_more_to_do %>)
 
-$("#todo-count strong").html(<%= Todo.num_left_to_do %>)
+$('#todo-count strong').html(<%= @num_left_to_do %>)
 
 <%= hide_or_show_clear_completed %>
